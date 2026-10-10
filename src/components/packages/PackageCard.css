@@ -230,3 +230,34 @@
     min-height: 42px;
   }
 }
+
+/* Mobile S (320px - 360px) */
+@media (max-width: 360px) {
+  .package-card-content {
+    padding: 14px 12px;
+    gap: 8px;
+  }
+
+  .package-card-img-wrap {
+    height: 180px;
+  }
+
+  .package-card-title {
+    font-size: 1.05rem;
+  }
+
+  .package-card-desc {
+    font-size: 0.8rem;
+  }
+
+  .pkg-price-val {
+    font-size: 1.15rem;
+  }
+
+  .pkg-btn-details,
+  .pkg-btn-book {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+    min-height: 38px;
+  }
+}

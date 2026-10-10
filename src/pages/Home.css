@@ -34,3 +34,11 @@
     padding-top: 10px;
   }
 }
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .hero-quick-chip {
+    padding: 3px 8px;
+    font-size: 0.75rem;
+  }
+}

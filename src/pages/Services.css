@@ -46,3 +46,12 @@
     padding: 10px 14px;
   }
 }
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .service-tab-btn {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    gap: 8px;
+  }
+}

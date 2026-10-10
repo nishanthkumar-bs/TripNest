@@ -115,3 +115,12 @@
     transform: translateY(0);
   }
 }
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .count-badge {
+    font-size: 0.68rem;
+    min-width: 16px;
+    height: 16px;
+  }
+}

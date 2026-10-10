@@ -67,6 +67,95 @@
   pointer-events: none;
 }
 
+/* Delete Confirmation Card Styles */
+.delete-confirm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.delete-warning-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: var(--color-danger-light);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+.delete-warning-icon {
+  color: var(--color-danger);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.delete-warning-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.delete-warning-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.delete-warning-desc {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.delete-record-summary {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delete-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  gap: 12px;
+}
+
+.delete-summary-row .summary-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.delete-summary-row .summary-val {
+  color: var(--text-main);
+  font-weight: 700;
+  text-align: right;
+}
+
+.delete-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.delete-btn-cancel,
+.delete-btn-confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 42px;
+}
+
+/* Tablet & Standard Mobile (max-width: 768px) */
 @media (max-width: 768px) {
   .bookings-page-header {
     flex-direction: column;
@@ -114,5 +203,139 @@
   .bookings-modal-actions .btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* Standard Phone Viewports (max-width: 600px) */
+@media (max-width: 600px) {
+  .delete-confirm-card {
+    gap: 14px;
+  }
+
+  .delete-confirm-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .delete-btn-cancel,
+  .delete-btn-confirm {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    min-height: 44px;
+  }
+
+  .delete-warning-banner {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .delete-warning-title {
+    font-size: 0.9rem;
+  }
+
+  .delete-warning-desc {
+    font-size: 0.82rem;
+  }
+
+  .delete-record-summary {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .delete-summary-row {
+    font-size: 0.82rem;
+  }
+}
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .bookings-filter-box {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+
+  .status-tab-btn {
+    padding: 6px 8px;
+    font-size: 0.74rem;
+  }
+
+  .delete-confirm-card {
+    gap: 10px;
+  }
+
+  .delete-warning-banner {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .delete-warning-icon {
+    margin-top: 1px;
+  }
+
+  .delete-warning-title {
+    font-size: 0.85rem;
+  }
+
+  .delete-warning-desc {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+
+  .delete-record-summary {
+    padding: 8px 10px;
+    gap: 4px;
+  }
+
+  .delete-summary-row {
+    font-size: 0.76rem;
+    gap: 6px;
+  }
+
+  .delete-confirm-actions {
+    gap: 8px;
+  }
+
+  .delete-btn-cancel,
+  .delete-btn-confirm {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    min-height: 40px;
+  }
+
+  .ticket-print-sheet {
+    padding: 12px 10px;
+  }
+
+  .ticket-grid-details {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.ticket-print-sheet {
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  background-color: var(--bg-subtle);
+}
+
+.ticket-grid-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 500px) {
+  .ticket-print-sheet {
+    padding: 14px 12px;
+  }
+
+  .ticket-grid-details {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }

@@ -5,7 +5,7 @@ import { useNotification } from '../context/NotificationContext';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import BookingCard from '../components/booking/BookingCard';
 import Modal from '../components/common/Modal';
-import { CalendarCheck, Plus, Search, Filter, Printer, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
+import { CalendarCheck, Plus, Search, Filter, Printer, CheckCircle2, AlertTriangle, Sparkles, Trash2 } from 'lucide-react';
 import './Bookings.css';
 
 export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
@@ -166,32 +166,68 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
       </div>
 
       {/* Delete Confirmation Modal */}
-      {deleteConfirmId && (
-        <Modal
-          isOpen={!!deleteConfirmId}
-          onClose={() => setDeleteConfirmId(null)}
-          title="Delete Booking Record"
-          subtitle="Are you sure you want to permanently delete this reservation?"
-          maxWidth="480px"
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
-            <div style={{ color: 'var(--color-danger)' }}>
-              <AlertTriangle size={36} />
+      {deleteConfirmId && (() => {
+        const bookingToDelete = bookings.find((b) => b.id === deleteConfirmId);
+        return (
+          <Modal
+            isOpen={!!deleteConfirmId}
+            onClose={() => setDeleteConfirmId(null)}
+            title="Delete Booking Record"
+            subtitle="Are you sure you want to permanently delete this reservation?"
+            maxWidth="480px"
+          >
+            <div className="delete-confirm-card">
+              <div className="delete-warning-banner">
+                <div className="delete-warning-icon">
+                  <AlertTriangle size={22} />
+                </div>
+                <div className="delete-warning-text">
+                  <div className="delete-warning-title">Permanent Record Deletion</div>
+                  <div className="delete-warning-desc">
+                    This will remove reservation <strong>#{deleteConfirmId}</strong> from your records. This action cannot be undone.
+                  </div>
+                </div>
+              </div>
+
+              {bookingToDelete && (
+                <div className="delete-record-summary">
+                  <div className="delete-summary-row">
+                    <span className="summary-label">Destination</span>
+                    <span className="summary-val">{bookingToDelete.destination}</span>
+                  </div>
+                  <div className="delete-summary-row">
+                    <span className="summary-label">Travel Date</span>
+                    <span className="summary-val">{bookingToDelete.travelDate}</span>
+                  </div>
+                  <div className="delete-summary-row">
+                    <span className="summary-label">Travelers & Total</span>
+                    <span className="summary-val">
+                      {bookingToDelete.guests} Guests • ₹{Number(bookingToDelete.totalPrice || 0).toLocaleString('en-IN')}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              <div className="delete-confirm-actions">
+                <button
+                  type="button"
+                  onClick={() => setDeleteConfirmId(null)}
+                  className="btn btn-secondary delete-btn-cancel"
+                >
+                  Keep Booking
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(deleteConfirmId)}
+                  className="btn btn-danger delete-btn-confirm"
+                >
+                  <Trash2 size={16} /> Yes, Delete Record
+                </button>
+              </div>
             </div>
-            <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              This will remove booking <strong>#{deleteConfirmId}</strong> from your records. This action cannot be undone.
-            </p>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-            <button onClick={() => setDeleteConfirmId(null)} className="btn btn-secondary">
-              Keep Booking
-            </button>
-            <button onClick={() => handleDelete(deleteConfirmId)} className="btn btn-danger">
-              Yes, Delete Record
-            </button>
-          </div>
-        </Modal>
-      )}
+          </Modal>
+        );
+      })()}
 
       {/* E-Ticket / Voucher Print Modal */}
       {ticketToPrint && (
@@ -202,12 +238,7 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
           subtitle="Official TripNest Passenger Boarding Confirmation"
           maxWidth="640px"
         >
-          <div style={{
-            border: '2px dashed var(--border-subtle)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '24px',
-            backgroundColor: 'var(--bg-subtle)'
-          }}>
+          <div className="ticket-print-sheet">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
               <div>
                 <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>TripNest</span>
@@ -218,7 +249,7 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '16px' }}>
+            <div className="ticket-grid-details">
               <div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Lead Traveler</span>
                 <div style={{ fontWeight: 700, fontSize: '1rem' }}>{ticketToPrint.travelerName}</div>

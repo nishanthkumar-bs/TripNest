@@ -10,3 +10,54 @@
     transform: scale(1) translateY(0);
   }
 }
+
+@media (max-width: 600px) {
+  .modal-backdrop {
+    padding: 12px !important;
+  }
+
+  .modal-box-card {
+    max-height: 94vh !important;
+    border-radius: var(--radius-lg) !important;
+    width: 100% !important;
+  }
+
+  .modal-header-section {
+    padding: 16px 16px 12px 16px !important;
+  }
+
+  .modal-header-section h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .modal-header-section p {
+    font-size: 0.8rem !important;
+  }
+
+  .modal-body-section {
+    padding: 16px !important;
+  }
+}
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .modal-backdrop {
+    padding: 8px 6px !important;
+  }
+
+  .modal-header-section {
+    padding: 14px 10px 10px 10px !important;
+  }
+
+  .modal-header-section h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .modal-header-section p {
+    font-size: 0.75rem !important;
+  }
+
+  .modal-body-section {
+    padding: 12px 10px !important;
+  }
+}

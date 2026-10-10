@@ -26,6 +26,7 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = '
 
   return (
     <div
+      className="modal-backdrop"
       style={{
         position: 'fixed',
         inset: 0,
@@ -44,6 +45,7 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = '
     >
       <div
         ref={modalRef}
+        className="modal-box-card"
         style={{
           backgroundColor: 'var(--bg-card)',
           borderRadius: 'var(--radius-xl)',
@@ -59,14 +61,17 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = '
         }}
       >
         {/* Modal Header */}
-        <div style={{
-          padding: '24px 28px 20px 28px',
-          borderBottom: '1px solid var(--border-subtle)',
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          gap: '16px'
-        }}>
+        <div
+          className="modal-header-section"
+          style={{
+            padding: '24px 28px 20px 28px',
+            borderBottom: '1px solid var(--border-subtle)',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            gap: '16px'
+          }}
+        >
           <div>
             <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
               {title}
@@ -96,7 +101,7 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = '
         </div>
 
         {/* Modal Content */}
-        <div style={{ padding: '24px 28px', overflowY: 'auto', flex: 1 }}>
+        <div className="modal-body-section" style={{ padding: '24px 28px', overflowY: 'auto', flex: 1 }}>
           {children}
         </div>
       </div>

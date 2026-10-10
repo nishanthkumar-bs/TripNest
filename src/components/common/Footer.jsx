@@ -66,20 +66,14 @@ export const Footer = () => {
         <div style={{
           paddingTop: '20px',
           display: 'flex',
-          flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '12px',
+          justifyContent: 'center',
+          textAlign: 'center',
           fontSize: '0.82rem',
           color: 'var(--text-muted)'
         }}>
           <div>
             © {new Date().getFullYear()} TripNest Travel. Built with React.
-          </div>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <span>All prices in Indian Rupees (₹)</span>
-            <span>•</span>
-            <span>Toll-Free Support</span>
           </div>
         </div>
       </div>

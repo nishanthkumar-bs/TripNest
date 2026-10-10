@@ -243,22 +243,90 @@
   }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 480px) {
   .booking-item-body {
-    grid-template-columns: 72px 1fr;
+    grid-template-columns: 76px 1fr;
     gap: 10px;
   }
 
   .booking-item-img-wrapper {
-    width: 72px;
-    height: 72px;
+    width: 76px;
+    height: 76px;
   }
 
   .actions-right {
-    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    gap: 6px;
   }
 
   .actions-right .action-btn {
-    min-width: calc(50% - 6px);
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 0.8rem;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 360px) {
+  .actions-right {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .actions-right .action-btn {
+    width: 100%;
+  }
+}
+
+/* Mobile S (320px - 340px) */
+@media (max-width: 340px) {
+  .booking-item-card {
+    padding: 10px 8px;
+    gap: 10px;
+  }
+
+  .booking-item-body {
+    grid-template-columns: 56px 1fr;
+    gap: 8px;
+  }
+
+  .booking-item-img-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+  }
+
+  .booking-dest-title {
+    font-size: 0.95rem;
+  }
+
+  .booking-meta-grid {
+    font-size: 0.74rem;
+    gap: 4px 6px;
+  }
+
+  .booking-item-price-block {
+    padding: 8px 10px;
+  }
+
+  .price-tag-val {
+    font-size: 1.15rem;
+  }
+
+  .actions-left,
+  .actions-right {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .actions-left .action-btn,
+  .actions-right .action-btn {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    min-height: 36px;
   }
 }

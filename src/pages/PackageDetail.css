@@ -26,3 +26,15 @@
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .gallery-container {
+    height: 210px !important;
+  }
+
+  .quick-stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}

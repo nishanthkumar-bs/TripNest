@@ -338,7 +338,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
               <Users size={15} /> Number of Travelers: <strong>{calcState.guests}</strong>
             </span>
           </label>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="modal-guest-counter" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button
               type="button"
               className="btn btn-secondary btn-sm"
@@ -377,7 +377,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
+            <label className="modal-addon-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="checkbox"
@@ -391,7 +391,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
               <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>+₹{ADDON_PRICES.insurance} / guest</span>
             </label>
 
-            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
+            <label className="modal-addon-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="checkbox"
@@ -405,7 +405,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
               <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>+₹{ADDON_PRICES.airportTransfer} flat</span>
             </label>
 
-            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
+            <label className="modal-addon-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="checkbox"
@@ -438,7 +438,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         </div>
 
         {/* Dynamic Price Summary Box in Rupees */}
-        <div style={{
+        <div className="modal-price-summary-box" style={{
           backgroundColor: 'var(--bg-subtle)',
           padding: '16px 20px',
           borderRadius: 'var(--radius-md)',
@@ -462,7 +462,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
             <span>+₹{pricing.taxesAndFees.toLocaleString('en-IN')}</span>
           </div>
 
-          <div style={{
+          <div className="modal-price-total-row" style={{
             display: 'flex',
             justifyContent: 'space-between',
             fontSize: '1.2rem',
