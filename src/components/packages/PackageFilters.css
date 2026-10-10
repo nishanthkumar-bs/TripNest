@@ -1,0 +1,7 @@
+/* PackageFilters Component Styles */
+
+@media (max-width: 768px) {
+  .filter-top-row {
+    grid-template-columns: 1fr !important;
+  }
+}

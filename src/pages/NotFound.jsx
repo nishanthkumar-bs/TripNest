@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import { Compass, Home, ArrowLeft } from 'lucide-react';
+import './NotFound.css';
 
 export const NotFound = () => {
   useDocumentTitle('404 — Page Not Found');

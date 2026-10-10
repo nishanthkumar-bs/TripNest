@@ -1,0 +1,20 @@
+/* NotFound Page Styles */
+
+.notfound-container {
+  text-align: center;
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+}
+
+.notfound-content {
+  max-width: 580px;
+}
+
+.notfound-code {
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 12px;
+}

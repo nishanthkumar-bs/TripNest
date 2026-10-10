@@ -13,6 +13,7 @@ import {
   Sparkles,
   MapPin
 } from 'lucide-react';
+import './Home.css';
 
 export const Home = ({ onOpenBookingModal }) => {
   useDocumentTitle('TripNest — Discover & Book Unforgettable Journeys');
@@ -263,39 +264,6 @@ export const Home = ({ onOpenBookingModal }) => {
           )}
         </div>
       </section>
-
-      <style>{`
-        .hero-search-grid {
-          display: grid;
-        }
-        .hero-quick-chip {
-          padding: 4px 12px;
-          border-radius: var(--radius-full);
-          background: var(--bg-subtle);
-          border: 1px solid var(--border-subtle);
-          color: var(--text-main);
-          font-size: 0.82rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all var(--transition-fast);
-        }
-        .hero-quick-chip:hover {
-          background-color: var(--color-primary-light);
-          color: var(--color-primary);
-          border-color: var(--color-primary);
-        }
-        @media (max-width: 840px) {
-          .hero-search-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .hero-search-col {
-            border-left: none !important;
-            padding-left: 0 !important;
-            border-top: 1px solid var(--border-subtle);
-            padding-top: 10px;
-          }
-        }
-      `}</style>
     </div>
   );
 };

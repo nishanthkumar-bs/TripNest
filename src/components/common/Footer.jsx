@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Compass } from 'lucide-react';
+import './Footer.css';
 
 export const Footer = () => {
   return (
@@ -82,16 +83,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-
-      <style>{`
-        .footer-link {
-          color: var(--text-muted);
-          transition: color var(--transition-fast);
-        }
-        .footer-link:hover {
-          color: var(--color-primary);
-        }
-      `}</style>
     </footer>
   );
 };

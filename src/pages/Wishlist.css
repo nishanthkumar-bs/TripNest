@@ -1,0 +1,22 @@
+/* Wishlist Page Styles */
+
+.wishlist-page {
+  /* Layout and container styles for wishlist */
+}
+
+.wishlist-empty-card {
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.wishlist-empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}

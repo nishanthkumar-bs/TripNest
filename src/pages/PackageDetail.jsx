@@ -23,6 +23,7 @@ import {
   ChevronDown,
   Award
 } from 'lucide-react';
+import './PackageDetail.css';
 
 export const PackageDetail = ({ onOpenBookingModal }) => {
   // React Router DOM: useParams!
@@ -434,31 +435,6 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 960px) {
-          .gallery-container {
-            grid-template-columns: 1fr !important;
-            height: 280px !important;
-          }
-          .gallery-container > div:nth-child(2) {
-            display: none !important;
-          }
-          .detail-layout {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 24px !important;
-          }
-          .detail-sidebar-wrap {
-            position: static !important;
-            order: -1;
-            width: 100%;
-          }
-          .quick-stats-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };

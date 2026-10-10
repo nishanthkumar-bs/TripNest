@@ -1,5 +1,6 @@
 import { CATEGORIES } from '../../data/packagesData';
 import { Search, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import './PackageFilters.css';
 
 export const PackageFilters = ({
   searchQuery,
@@ -170,14 +171,6 @@ export const PackageFilters = ({
           </button>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .filter-top-row {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };

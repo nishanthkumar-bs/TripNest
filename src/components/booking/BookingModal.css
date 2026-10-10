@@ -1,0 +1,18 @@
+/* Booking Modal Dialog Styles */
+
+@media (max-width: 600px) {
+  .modal-two-col {
+    grid-template-columns: 1fr !important;
+  }
+
+  .modal-actions-wrap {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .modal-btn-cancel,
+  .modal-btn-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}

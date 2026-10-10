@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import { Compass, ShieldCheck, Heart, Globe, Users, Award, ChevronDown, Sparkles } from 'lucide-react';
+import './About.css';
 
 export const About = () => {
   useDocumentTitle('About Us — The TripNest Story');

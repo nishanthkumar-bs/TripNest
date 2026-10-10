@@ -6,6 +6,7 @@ import useDocumentTitle from '../hooks/useDocumentTitle';
 import BookingCard from '../components/booking/BookingCard';
 import Modal from '../components/common/Modal';
 import { CalendarCheck, Plus, Search, Filter, Printer, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
+import './Bookings.css';
 
 export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
   useDocumentTitle('Manage My Bookings');
@@ -268,125 +269,6 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
           </div>
         </Modal>
       )}
-
-      <style>{`
-        .bookings-page-header {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 32px;
-        }
-
-        .bookings-filter-box {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-          padding: 14px 20px;
-          margin-bottom: 28px;
-          flex-wrap: wrap;
-        }
-
-        .bookings-status-tabs {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          overflow-x: auto;
-          padding-bottom: 2px;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .status-tab-btn {
-          padding: 8px 16px;
-          border-radius: var(--radius-full);
-          font-size: 0.88rem;
-          font-weight: 600;
-          color: var(--text-muted);
-          background: var(--bg-subtle);
-          border: 1px solid var(--border-subtle);
-          transition: all var(--transition-fast);
-          white-space: nowrap;
-          cursor: pointer;
-        }
-
-        .status-tab-btn:hover {
-          color: var(--color-primary);
-          border-color: var(--color-primary);
-        }
-
-        .status-tab-btn.active {
-          background-color: var(--color-primary);
-          color: #ffffff;
-          border-color: var(--color-primary);
-          box-shadow: 0 2px 8px var(--color-primary-glow);
-        }
-
-        .bookings-search-wrap {
-          position: relative;
-          min-width: 260px;
-          flex: 1;
-          max-width: 360px;
-        }
-
-        .bookings-search-icon {
-          position: absolute;
-          left: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-          .bookings-page-header {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 16px;
-            margin-bottom: 24px;
-          }
-
-          .bookings-new-btn {
-            width: 100%;
-            justify-content: center;
-          }
-
-          .bookings-filter-box {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 14px;
-            gap: 12px;
-          }
-
-          .bookings-status-tabs {
-            width: 100%;
-            display: flex;
-            gap: 6px;
-            overflow-x: auto;
-          }
-
-          .status-tab-btn {
-            flex: 1;
-            text-align: center;
-            padding: 8px 10px;
-            font-size: 0.8rem;
-          }
-
-          .bookings-search-wrap {
-            width: 100%;
-            max-width: 100%;
-            min-width: unset;
-          }
-
-          .bookings-modal-actions {
-            flex-direction: column-reverse;
-          }
-
-          .bookings-modal-actions .btn {
-            width: 100%;
-            justify-content: center;
-          }
-        }
-      `}</style>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useBookingCalculator, ADDON_PRICES } from '../../hooks/useBookingCalcul
 import Modal from '../common/Modal';
 import { PACKAGES_DATA } from '../../data/packagesData';
 import { Calendar, User, Mail, Phone, Users, Shield, Plane, Sparkles, Check } from 'lucide-react';
+import './BookingModal.css';
 
 export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingToEdit = null }) => {
   const dispatch = useDispatch();
@@ -503,23 +504,6 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
           </button>
         </div>
       </form>
-
-      <style>{`
-        @media (max-width: 600px) {
-          .modal-two-col {
-            grid-template-columns: 1fr !important;
-          }
-          .modal-actions-wrap {
-            flex-direction: column-reverse;
-            gap: 10px;
-          }
-          .modal-btn-cancel,
-          .modal-btn-submit {
-            width: 100%;
-            justify-content: center;
-          }
-        }
-      `}</style>
     </Modal>
   );
 };

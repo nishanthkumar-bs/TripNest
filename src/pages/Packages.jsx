@@ -7,6 +7,7 @@ import PackageCard from '../components/packages/PackageCard';
 import PackageFilters from '../components/packages/PackageFilters';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { Compass, Sparkles, AlertCircle } from 'lucide-react';
+import './Packages.css';
 
 export const Packages = ({ onOpenBookingModal }) => {
   useDocumentTitle('All Travel Packages & Destinations');

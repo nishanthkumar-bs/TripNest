@@ -5,6 +5,7 @@ import useDocumentTitle from '../hooks/useDocumentTitle';
 import { PACKAGES_DATA } from '../data/packagesData';
 import PackageCard from '../components/packages/PackageCard';
 import { Bookmark, Sparkles, Trash2, ArrowRight } from 'lucide-react';
+import './Wishlist.css';
 
 export const Wishlist = ({ onOpenBookingModal }) => {
   useDocumentTitle('Saved Trips & Wishlist');

@@ -1,0 +1,17 @@
+/* Contact Page Styles */
+
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-form-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-card-form {
+    padding: 20px !important;
+  }
+}

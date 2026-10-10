@@ -1,6 +1,7 @@
 import { SERVICES_DATA } from '../../data/servicesData';
 import Badge from '../../components/common/Badge';
 import { ShieldCheck, CheckCircle2, HelpCircle } from 'lucide-react';
+import './ServiceSubpage.css';
 
 export const VisaInsuranceService = ({ onOpenBookingModal }) => {
   const service = SERVICES_DATA['visa-insurance'];

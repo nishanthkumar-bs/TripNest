@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import { useNotification } from '../context/NotificationContext';
 import { Mail, Phone, MapPin, Clock, Send, MessageSquare, CheckCircle2, Headphones } from 'lucide-react';
+import './Contact.css';
 
 export const Contact = () => {
   useDocumentTitle('Contact Us & Concierge Support');
@@ -353,22 +354,6 @@ export const Contact = () => {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 860px) {
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .contact-form-row {
-            grid-template-columns: 1fr !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .contact-card-form {
-            padding: 20px !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { Compass } from 'lucide-react';
+import './LoadingSpinner.css';
 
 export const LoadingSpinner = ({ text = 'Loading extraordinary destinations...' }) => {
   return (
@@ -15,12 +16,6 @@ export const LoadingSpinner = ({ text = 'Loading extraordinary destinations...' 
         <Compass size={44} color="var(--color-primary)" />
       </div>
       <p style={{ fontSize: '1rem', fontWeight: 500 }}>{text}</p>
-      <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 };

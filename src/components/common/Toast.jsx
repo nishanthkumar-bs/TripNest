@@ -1,5 +1,6 @@
 import { useNotification } from '../../context/NotificationContext';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
+import './Toast.css';
 
 export const Toast = () => {
   const { notifications, dismissNotification } = useNotification();
@@ -64,18 +65,6 @@ export const Toast = () => {
           </div>
         );
       })}
-      <style>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-      `}</style>
     </div>
   );
 };
