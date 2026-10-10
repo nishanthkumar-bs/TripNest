@@ -1,0 +1,169 @@
+import { useState, useEffect, useTransition } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import useDocumentTitle from '../hooks/useDocumentTitle';
+import useDebounce from '../hooks/useDebounce';
+import { travelApi } from '../services/api';
+import PackageCard from '../components/packages/PackageCard';
+import PackageFilters from '../components/packages/PackageFilters';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import { Compass, Sparkles, AlertCircle } from 'lucide-react';
+
+export const Packages = ({ onOpenBookingModal }) => {
+  useDocumentTitle('All Travel Packages & Destinations');
+
+  // React Router DOM: useSearchParams!
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // URL state extraction
+  const initialSearch = searchParams.get('search') || '';
+  const initialCategory = searchParams.get('category') || 'All';
+  const initialSort = searchParams.get('sortBy') || 'recommended';
+  const initialMaxPrice = Number(searchParams.get('maxPrice')) || 150000;
+
+  // Local filter states
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [sortBy, setSortBy] = useState(initialSort);
+  const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
+
+  // Debounce the search text so we don't spam API or history
+  const debouncedSearch = useDebounce(searchQuery, 350);
+
+  // Packages list state
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Synchronize local states to URL search parameters
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (debouncedSearch.trim()) params.set('search', debouncedSearch.trim());
+    if (activeCategory !== 'All') params.set('category', activeCategory);
+    if (sortBy !== 'recommended') params.set('sortBy', sortBy);
+    if (maxPrice < 150000) params.set('maxPrice', maxPrice.toString());
+
+    setSearchParams(params, { replace: true });
+  }, [debouncedSearch, activeCategory, sortBy, maxPrice, setSearchParams]);
+
+  // Fetch packages from simulated API whenever filters change
+  useEffect(() => {
+    let isMounted = true;
+    const fetchFilteredPackages = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const results = await travelApi.getPackages({
+          search: debouncedSearch,
+          category: activeCategory,
+          sortBy,
+          maxPrice
+        });
+        if (isMounted) {
+          setPackages(results);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message || 'Failed to load destinations.');
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchFilteredPackages();
+    return () => { isMounted = false; };
+  }, [debouncedSearch, activeCategory, sortBy, maxPrice]);
+
+  // Reset all filters
+  const handleResetFilters = () => {
+    setSearchQuery('');
+    setActiveCategory('All');
+    setSortBy('recommended');
+    setMaxPrice(150000);
+    setSearchParams({}, { replace: true });
+  };
+
+  return (
+    <div className="section-py">
+      <div className="container">
+        {/* Page Header */}
+        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 36px auto' }}>
+          <span className="section-pill">
+            <Compass size={14} /> Explore The World
+          </span>
+          <h1 className="section-title">
+            Curated Travel Packages & Destinations
+          </h1>
+          <p className="section-desc">
+            Filter through our bespoke vacation packages by region, activity style, or budget to plan your ideal itinerary.
+          </p>
+        </div>
+
+        {/* Filter Controls (Connected to useSearchParams) */}
+        <PackageFilters
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          maxPrice={maxPrice}
+          onMaxPriceChange={setMaxPrice}
+          onResetFilters={handleResetFilters}
+          totalResults={packages.length}
+        />
+
+        {/* Main Content: Loading, Error, Empty State, or Packages Grid */}
+        {loading ? (
+          <LoadingSpinner text="Searching vacation packages..." />
+        ) : error ? (
+          <div className="card" style={{ padding: '40px', textAlign: 'center', color: 'var(--color-danger)' }}>
+            <AlertCircle size={40} style={{ margin: '0 auto 12px auto' }} />
+            <h3>Something went wrong</h3>
+            <p>{error}</p>
+            <button onClick={handleResetFilters} className="btn btn-secondary mt-3">Try Again</button>
+          </div>
+        ) : packages.length === 0 ? (
+          <div className="card" style={{ padding: '60px 20px', textAlign: 'center' }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: 'var(--color-primary-light)',
+              color: 'var(--color-primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px auto'
+            }}>
+              <Compass size={32} />
+            </div>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '8px' }}>
+              No travel packages found
+            </h3>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '440px', margin: '0 auto 20px auto' }}>
+              We could not find any vacation matching your specific search filters. Try adjusting your keyword or clearing filters.
+            </p>
+            <button onClick={handleResetFilters} className="btn btn-primary">
+              Clear All Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid-3">
+            {packages.map((pkg) => (
+              <PackageCard
+                key={pkg.id}
+                pkg={pkg}
+                onQuickBook={(item) => onOpenBookingModal && onOpenBookingModal(item)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Packages;
