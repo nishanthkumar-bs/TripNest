@@ -118,11 +118,11 @@ export const Services = ({ onOpenBookingModal }) => {
               <Sparkles size={18} /> Request Custom Quote
             </button>
             <a
-              href="tel:+9118002006378"
+              href="tel:+919876543210"
               className="btn btn-secondary btn-lg"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.2)' }}
             >
-              <PhoneCall size={18} /> Call Concierge (+91)
+              <PhoneCall size={18} /> Call Concierge (+91 9876543210)
             </a>
           </div>
         </div>

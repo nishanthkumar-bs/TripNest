@@ -131,7 +131,7 @@ export const Contact = () => {
                   </div>
                   <div>
                     <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Phone & WhatsApp Support (India)</div>
-                    <div style={{ color: 'var(--color-primary)', fontWeight: 800, fontSize: '1.1rem' }}>+91 1800-200-6378</div>
+                    <div style={{ color: 'var(--color-primary)', fontWeight: 800, fontSize: '1.1rem' }}>+91 9876543210</div>
                     <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Toll-free across India • +91 80 4567 8900</div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export const Contact = () => {
           </div>
 
           {/* Right Column: Validated Contact Form */}
-          <div className="card" style={{ padding: '36px' }}>
+          <div className="card contact-card-form" style={{ padding: '36px' }}>
             {submitted ? (
               <div style={{ textAlign: 'center', padding: '30px 10px' }}>
                 <div style={{
@@ -361,6 +361,11 @@ export const Contact = () => {
           }
           .contact-form-row {
             grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .contact-card-form {
+            padding: 20px !important;
           }
         }
       `}</style>

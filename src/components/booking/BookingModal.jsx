@@ -5,7 +5,7 @@ import { useNotification } from '../../context/NotificationContext';
 import { useBookingCalculator, ADDON_PRICES } from '../../hooks/useBookingCalculator';
 import Modal from '../common/Modal';
 import { PACKAGES_DATA } from '../../data/packagesData';
-import { Calendar, User, Mail, Phone, Users, Shield, Plane, Sparkles, Tag, Check } from 'lucide-react';
+import { Calendar, User, Mail, Phone, Users, Shield, Plane, Sparkles, Check } from 'lucide-react';
 
 export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingToEdit = null }) => {
   const dispatch = useDispatch();
@@ -420,36 +420,6 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
           </div>
         </div>
 
-        {/* Promo Voucher input */}
-        <div style={{ marginBottom: '20px' }}>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <div style={{ position: 'relative', flex: 1 }}>
-              <Tag size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
-              <input
-                type="text"
-                placeholder="Coupon code (e.g. NAMASTE10, TRIPNEST500)"
-                value={calcState.promoCodeInput}
-                onChange={(e) => calcDispatch({ type: 'SET_PROMO_CODE', payload: e.target.value })}
-                className="form-input"
-                style={{ paddingLeft: '36px', textTransform: 'uppercase' }}
-              />
-            </div>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              onClick={() => calcDispatch({ type: 'APPLY_PROMO' })}
-            >
-              Apply
-            </button>
-          </div>
-          {calcState.promoError && <p className="form-error" style={{ marginTop: '4px' }}>{calcState.promoError}</p>}
-          {calcState.promoSuccess && (
-            <p style={{ color: 'var(--color-success)', fontSize: '0.82rem', marginTop: '4px', fontWeight: 600 }}>
-              ✓ {calcState.promoSuccess}
-            </p>
-          )}
-        </div>
-
         {/* Special Requests textarea */}
         <div className="form-group">
           <label className="form-label" htmlFor="specialRequests">
@@ -483,13 +453,6 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '6px' }}>
               <span>Selected Add-ons:</span>
               <span>+₹{pricing.addonsTotal.toLocaleString('en-IN')}</span>
-            </div>
-          )}
-
-          {pricing.discountAmount > 0 && (
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '6px', color: 'var(--color-success)' }}>
-              <span>Coupon Discount ({calcState.appliedPromo}):</span>
-              <span>-₹{pricing.discountAmount.toLocaleString('en-IN')}</span>
             </div>
           )}
 
@@ -530,11 +493,11 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         </div>
 
         {/* Submit Actions */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
-          <button type="button" onClick={onClose} className="btn btn-secondary">
+        <div className="modal-actions-wrap" style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
+          <button type="button" onClick={onClose} className="btn btn-secondary modal-btn-cancel">
             Cancel
           </button>
-          <button type="submit" className="btn btn-primary btn-lg">
+          <button type="submit" className="btn btn-primary btn-lg modal-btn-submit">
             <Check size={18} />
             {bookingToEdit ? 'Save Changes' : `Confirm Booking (₹${pricing.grandTotal.toLocaleString('en-IN')})`}
           </button>
@@ -545,6 +508,15 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         @media (max-width: 600px) {
           .modal-two-col {
             grid-template-columns: 1fr !important;
+          }
+          .modal-actions-wrap {
+            flex-direction: column-reverse;
+            gap: 10px;
+          }
+          .modal-btn-cancel,
+          .modal-btn-submit {
+            width: 100%;
+            justify-content: center;
           }
         }
       `}</style>

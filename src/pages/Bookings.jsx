@@ -62,14 +62,7 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
     <div className="section-py">
       <div className="container">
         {/* Header */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '20px',
-          marginBottom: '32px'
-        }}>
+        <div className="bookings-page-header">
           <div>
             <span className="section-pill">
               <CalendarCheck size={14} /> Reservation Hub
@@ -78,22 +71,22 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
               My Booked Vacations
             </h1>
             <p className="section-desc">
-              View, reschedule, download e-tickets, or manage all your TripNest travel packages.
+              View, reschedule, download e-tickets, or manage your TripNest vacation reservations.
             </p>
           </div>
 
           <button
             onClick={() => onOpenBookingModal && onOpenBookingModal()}
-            className="btn btn-primary btn-lg"
+            className="btn btn-primary btn-lg bookings-new-btn"
           >
             <Plus size={18} /> Book a New Trip
           </button>
         </div>
 
         {/* Filter and Search Controls */}
-        <div className="card" style={{ padding: '16px 20px', marginBottom: '28px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+        <div className="card bookings-filter-box">
           {/* Status Tabs */}
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div className="bookings-status-tabs">
             {statusTabs.map((status) => {
               const isActive = filterStatus === status;
               const count = status === 'All' ? bookings.length : bookings.filter(b => b.status === status).length;
@@ -102,17 +95,7 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
                 <button
                   key={status}
                   onClick={() => dispatch(setFilterStatus(status))}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: '0.88rem',
-                    fontWeight: 600,
-                    backgroundColor: isActive ? 'var(--color-primary)' : 'var(--bg-subtle)',
-                    color: isActive ? '#ffffff' : 'var(--text-main)',
-                    border: `1px solid ${isActive ? 'var(--color-primary)' : 'var(--border-subtle)'}`,
-                    transition: 'all var(--transition-fast)',
-                    cursor: 'pointer'
-                  }}
+                  className={`status-tab-btn ${isActive ? 'active' : ''}`}
                 >
                   {status} ({count})
                 </button>
@@ -121,8 +104,8 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
           </div>
 
           {/* Search Input */}
-          <div style={{ position: 'relative', minWidth: '260px' }}>
-            <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+          <div className="bookings-search-wrap">
+            <Search size={16} color="var(--text-muted)" className="bookings-search-icon" />
             <input
               type="text"
               placeholder="Search reference # or traveler name..."
@@ -265,11 +248,11 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
               fontSize: '0.82rem',
               color: 'var(--text-muted)'
             }}>
-              ✓ Confirmed Status • 24/7 India Helpline: +91 1800-200-6378 • Present this confirmation upon arrival.
+              ✓ Confirmed Status • 24/7 India Helpline: +91 9876543210 • Present this confirmation upon arrival.
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '20px' }}>
+          <div className="bookings-modal-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '20px' }}>
             <button onClick={() => setTicketToPrint(null)} className="btn btn-secondary">
               Close
             </button>
@@ -285,6 +268,125 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
           </div>
         </Modal>
       )}
+
+      <style>{`
+        .bookings-page-header {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 20px;
+          margin-bottom: 32px;
+        }
+
+        .bookings-filter-box {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 14px 20px;
+          margin-bottom: 28px;
+          flex-wrap: wrap;
+        }
+
+        .bookings-status-tabs {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          overflow-x: auto;
+          padding-bottom: 2px;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .status-tab-btn {
+          padding: 8px 16px;
+          border-radius: var(--radius-full);
+          font-size: 0.88rem;
+          font-weight: 600;
+          color: var(--text-muted);
+          background: var(--bg-subtle);
+          border: 1px solid var(--border-subtle);
+          transition: all var(--transition-fast);
+          white-space: nowrap;
+          cursor: pointer;
+        }
+
+        .status-tab-btn:hover {
+          color: var(--color-primary);
+          border-color: var(--color-primary);
+        }
+
+        .status-tab-btn.active {
+          background-color: var(--color-primary);
+          color: #ffffff;
+          border-color: var(--color-primary);
+          box-shadow: 0 2px 8px var(--color-primary-glow);
+        }
+
+        .bookings-search-wrap {
+          position: relative;
+          min-width: 260px;
+          flex: 1;
+          max-width: 360px;
+        }
+
+        .bookings-search-icon {
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+          .bookings-page-header {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+            margin-bottom: 24px;
+          }
+
+          .bookings-new-btn {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .bookings-filter-box {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 14px;
+            gap: 12px;
+          }
+
+          .bookings-status-tabs {
+            width: 100%;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+          }
+
+          .status-tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+          }
+
+          .bookings-search-wrap {
+            width: 100%;
+            max-width: 100%;
+            min-width: unset;
+          }
+
+          .bookings-modal-actions {
+            flex-direction: column-reverse;
+          }
+
+          .bookings-modal-actions .btn {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      `}</style>
     </div>
   );
 };

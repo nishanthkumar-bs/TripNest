@@ -42,7 +42,7 @@
      - `/services/visa-insurance`: Global travel protection and consular visa assistance
   6. **Saved Trips (`/wishlist`)**: Personal bucket list connected to Redux. Initial state is **0 saved trips**.
   7. **About Us (`/about`)**: Company story, core philosophy, Indian expedition architects, milestone statistics, and interactive FAQ accordion.
-  8. **Contact & Concierge (`/contact`)**: Form with field validation, **Indian mobile number format (`+91 98765 43210`)**, `useRef` error focusing, 24/7 hotline details (`+91 1800-200-6378`), and Indian hubs (Bengaluru HQ, New Delhi, Mumbai, Kochi).
+  8. **Contact & Concierge (`/contact`)**: Form with field validation, **Indian mobile number format (`+91 98765 43210`)**, `useRef` error focusing, 24/7 hotline details (`+91 9876543210`), and Indian hubs (Bengaluru HQ, New Delhi, Mumbai, Kochi).
   9. **404 Not Found (`*`)**: Custom error page with fallback navigation.
 
 ---

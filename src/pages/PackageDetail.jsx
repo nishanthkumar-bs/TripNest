@@ -195,13 +195,16 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
           {/* Left Column: Itinerary, Inclusions, Overview */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
             {/* Quick Stats Grid */}
-            <div className="card" style={{
-              padding: '24px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '16px',
-              textAlign: 'center'
-            }} className="quick-stats-grid">
+            <div
+              className="card quick-stats-grid"
+              style={{
+                padding: '24px',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '16px',
+                textAlign: 'center'
+              }}
+            >
               <div>
                 <div style={{ color: 'var(--color-primary)', display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
                   <Clock size={24} />
@@ -370,7 +373,7 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
           </div>
 
           {/* Right Column: Sticky Booking Widget Card */}
-          <div style={{ position: 'sticky', top: '100px' }}>
+          <div className="detail-sidebar-wrap" style={{ position: 'sticky', top: '100px' }}>
             <div className="card" style={{ padding: '28px', boxShadow: 'var(--shadow-xl)', border: '1.5px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '14px' }}>
                 <div>
@@ -409,7 +412,7 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
               {/* Action Buttons */}
               <button
                 onClick={() => onOpenBookingModal && onOpenBookingModal(pkg)}
-                className="btn btn-primary btn-lg"
+                className="btn btn-primary btn-lg pkg-detail-book-btn"
                 style={{ width: '100%', marginBottom: '12px' }}
               >
                 Book This Vacation Now
@@ -425,7 +428,7 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
               </button>
 
               <div style={{ textAlign: 'center', marginTop: '16px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                Have questions before booking? Call our India concierge at <strong>+91 1800-200-6378</strong>
+                Have questions before booking? Call our India concierge at <strong>+91 9876543210</strong>
               </div>
             </div>
           </div>
@@ -436,13 +439,20 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
         @media (max-width: 960px) {
           .gallery-container {
             grid-template-columns: 1fr !important;
-            height: 320px !important;
+            height: 280px !important;
           }
           .gallery-container > div:nth-child(2) {
             display: none !important;
           }
           .detail-layout {
-            grid-template-columns: 1fr !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 24px !important;
+          }
+          .detail-sidebar-wrap {
+            position: static !important;
+            order: -1;
+            width: 100%;
           }
           .quick-stats-grid {
             grid-template-columns: repeat(2, 1fr) !important;
