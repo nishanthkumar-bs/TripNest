@@ -24,76 +24,41 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = '
 
   if (!isOpen) return null;
 
+  const sizeClass =
+    maxWidth === '480px'
+      ? 'modal-max-sm'
+      : maxWidth === '720px'
+      ? 'modal-max-lg'
+      : maxWidth === '640px'
+      ? 'modal-max-md'
+      : '';
+
   return (
     <div
       className="modal-backdrop"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: 'var(--bg-overlay)',
-        backdropFilter: 'blur(5px)',
-        zIndex: 999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px',
-        overflowY: 'auto'
-      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div
         ref={modalRef}
-        className="modal-box-card"
-        style={{
-          backgroundColor: 'var(--bg-card)',
-          borderRadius: 'var(--radius-xl)',
-          width: '100%',
-          maxWidth,
-          boxShadow: 'var(--shadow-xl)',
-          border: '1px solid var(--border-subtle)',
-          maxHeight: '90vh',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          animation: 'modalPop 0.22s ease-out'
-        }}
+        className={`modal-box-card ${sizeClass}`}
       >
         {/* Modal Header */}
-        <div
-          className="modal-header-section"
-          style={{
-            padding: '24px 28px 20px 28px',
-            borderBottom: '1px solid var(--border-subtle)',
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
-            gap: '16px'
-          }}
-        >
+        <div className="modal-header-section">
           <div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
+            <h3 className="modal-title">
               {title}
             </h3>
             {subtitle && (
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+              <p className="modal-subtitle">
                 {subtitle}
               </p>
             )}
           </div>
           <button
             onClick={onClose}
-            style={{
-              padding: '8px',
-              borderRadius: 'var(--radius-full)',
-              color: 'var(--text-muted)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'var(--bg-subtle)',
-              transition: 'all var(--transition-fast)'
-            }}
+            className="modal-close-btn"
             aria-label="Close dialog"
           >
             <X size={18} />
@@ -101,7 +66,7 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = '
         </div>
 
         {/* Modal Content */}
-        <div className="modal-body-section" style={{ padding: '24px 28px', overflowY: 'auto', flex: 1 }}>
+        <div className="modal-body-section">
           {children}
         </div>
       </div>

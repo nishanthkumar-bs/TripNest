@@ -90,7 +90,7 @@ export const Packages = ({ onOpenBookingModal }) => {
     <div className="section-py">
       <div className="container">
         {/* Page Header */}
-        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 36px auto' }}>
+        <div className="packages-page-header">
           <span className="section-pill">
             <Compass size={14} /> Explore The World
           </span>
@@ -120,31 +120,21 @@ export const Packages = ({ onOpenBookingModal }) => {
         {loading ? (
           <LoadingSpinner text="Searching vacation packages..." />
         ) : error ? (
-          <div className="card" style={{ padding: '40px', textAlign: 'center', color: 'var(--color-danger)' }}>
-            <AlertCircle size={40} style={{ margin: '0 auto 12px auto' }} />
+          <div className="card packages-error-card">
+            <AlertCircle size={40} className="packages-error-icon" />
             <h3>Something went wrong</h3>
             <p>{error}</p>
             <button onClick={handleResetFilters} className="btn btn-secondary mt-3">Try Again</button>
           </div>
         ) : packages.length === 0 ? (
-          <div className="card" style={{ padding: '60px 20px', textAlign: 'center' }}>
-            <div style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: 'var(--radius-full)',
-              backgroundColor: 'var(--color-primary-light)',
-              color: 'var(--color-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 16px auto'
-            }}>
+          <div className="card packages-empty-card">
+            <div className="packages-empty-icon">
               <Compass size={32} />
             </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h3 className="packages-empty-title">
               No travel packages found
             </h3>
-            <p style={{ color: 'var(--text-muted)', maxWidth: '440px', margin: '0 auto 20px auto' }}>
+            <p className="packages-empty-desc">
               We could not find any vacation matching your specific search filters. Try adjusting your keyword or clearing filters.
             </p>
             <button onClick={handleResetFilters} className="btn btn-primary">

@@ -1,18 +1,21 @@
 import { useState, useRef } from 'react';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import { useNotification } from '../context/NotificationContext';
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare, CheckCircle2, Headphones } from 'lucide-react';
+import {
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  CheckCircle2,
+  Headphones
+} from 'lucide-react';
 import './Contact.css';
 
 export const Contact = () => {
-  useDocumentTitle('Contact Us & Concierge Support');
+  useDocumentTitle('Contact Us — 24/7 Global Travel Concierge');
   const { showNotification } = useNotification();
 
-  // useRef references for auto-focusing on invalid fields
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const messageRef = useRef(null);
-
+  // Controlled form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,56 +24,62 @@ export const Contact = () => {
     message: ''
   });
 
+  // Validation error state
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+
+  // useRef hooks to directly focus inputs on validation errors
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const messageRef = useRef(null);
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = 'Please provide a valid email format';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Please let us know how we can help you';
+    } else if (formData.message.trim().length < 15) {
+      newErrors.message = 'Inquiry details should be at least 15 characters';
+    }
+
+    setErrors(newErrors);
+
+    // Focus first invalid input using useRef
+    if (newErrors.name && nameRef.current) {
+      nameRef.current.focus();
+    } else if (newErrors.email && emailRef.current) {
+      emailRef.current.focus();
+    } else if (newErrors.message && messageRef.current) {
+      messageRef.current.focus();
+    }
+
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors(prev => ({ ...prev, [name]: null }));
     }
-  };
-
-  const validate = () => {
-    const errs = {};
-    if (!formData.name.trim()) {
-      errs.name = 'Full name is required.';
-      if (nameRef.current) nameRef.current.focus();
-    } else if (formData.name.trim().length < 3) {
-      errs.name = 'Name must be at least 3 characters.';
-      if (nameRef.current) nameRef.current.focus();
-    }
-
-    if (!formData.email.trim()) {
-      errs.email = 'Email address is required.';
-      if (!errs.name && emailRef.current) emailRef.current.focus();
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      errs.email = 'Please provide a valid email address.';
-      if (!errs.name && emailRef.current) emailRef.current.focus();
-    }
-
-    if (!formData.message.trim()) {
-      errs.message = 'Please provide details in your message.';
-      if (!errs.name && !errs.email && messageRef.current) messageRef.current.focus();
-    } else if (formData.message.trim().length < 15) {
-      errs.message = 'Message must be at least 15 characters.';
-      if (!errs.name && !errs.email && messageRef.current) messageRef.current.focus();
-    }
-
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) {
-      showNotification('Please fill in the required fields correctly.', 'error');
-      return;
+    if (validate()) {
+      setSubmitted(true);
+      showNotification('Your travel inquiry has been transmitted to our destination concierge!', 'success');
     }
-
-    setSubmitted(true);
-    showNotification('Your message has been sent! A travel concierge will respond within 2 hours.', 'success');
   };
 
   const resetForm = () => {
@@ -81,6 +90,7 @@ export const Contact = () => {
       subject: 'General Inquiry',
       message: ''
     });
+    setErrors({});
     setSubmitted(false);
   };
 
@@ -88,7 +98,7 @@ export const Contact = () => {
     <div className="section-py">
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 48px auto' }}>
+        <div className="contact-header">
           <span className="section-pill">
             <Headphones size={14} /> 24/7 Global Support
           </span>
@@ -101,137 +111,92 @@ export const Contact = () => {
         </div>
 
         {/* 2-Column: Left Contact Cards, Right Validated Form */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1.3fr',
-          gap: '40px',
-          alignItems: 'start'
-        }} className="contact-grid">
+        <div className="contact-grid">
           {/* Left Column: Direct info & Worldwide Hubs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="contact-info-col">
             {/* Quick Contact Info Card */}
-            <div className="card" style={{ padding: '28px' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '20px' }}>
+            <div className="card contact-info-card">
+              <h3 className="contact-info-title">
                 Direct Assistance Channels
               </h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: 'var(--radius-md)',
-                    backgroundColor: 'var(--color-primary-light)',
-                    color: 'var(--color-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0
-                  }}>
+              <div className="contact-channels-list">
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon-wrap contact-channel-icon-primary">
                     <Phone size={20} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Phone & WhatsApp Support (India)</div>
-                    <div style={{ color: 'var(--color-primary)', fontWeight: 800, fontSize: '1.1rem' }}>+91 9876543210</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Toll-free across India • +91 80 4567 8900</div>
+                    <div className="contact-channel-label">Phone & WhatsApp Support (India)</div>
+                    <div className="contact-channel-val-primary">+91 9876543210</div>
+                    <div className="contact-channel-sub">Toll-free across India • +91 80 4567 8900</div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: 'var(--radius-md)',
-                    backgroundColor: 'var(--color-secondary-light)',
-                    color: 'var(--color-secondary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0
-                  }}>
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon-wrap contact-channel-icon-secondary">
                     <Mail size={20} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Email Concierge</div>
-                    <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>concierge@tripnest.in</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Average reply within 45 minutes</div>
+                    <div className="contact-channel-label">Email Concierge</div>
+                    <div className="contact-channel-val-main">concierge@tripnest.in</div>
+                    <div className="contact-channel-sub">Average reply within 45 minutes</div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: 'var(--radius-md)',
-                    backgroundColor: 'var(--color-accent-light)',
-                    color: 'var(--color-accent)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0
-                  }}>
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon-wrap contact-channel-icon-accent">
                     <Clock size={20} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Operating Hours</div>
-                    <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>24 Hours / 7 Days a Week</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Emergency travel assistance active</div>
+                    <div className="contact-channel-label">Operating Hours</div>
+                    <div className="contact-channel-val-main">24 Hours / 7 Days a Week</div>
+                    <div className="contact-channel-sub">Emergency travel assistance active</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Indian City Hubs */}
-            <div className="card" style={{ padding: '28px' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '16px' }}>
+            <div className="card contact-info-card">
+              <h3 className="contact-info-title">
                 TripNest Indian Hubs
               </h3>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
-                <div style={{ padding: '12px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>🇮🇳 Bengaluru (HQ)</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Indiranagar 100ft Road</div>
+              <div className="contact-hubs-grid">
+                <div className="contact-hub-card">
+                  <div className="contact-hub-name">🇮🇳 Bengaluru (HQ)</div>
+                  <div className="contact-hub-address">Indiranagar 100ft Road</div>
                 </div>
 
-                <div style={{ padding: '12px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>🇮🇳 New Delhi</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Connaught Place, Inner Circle</div>
+                <div className="contact-hub-card">
+                  <div className="contact-hub-name">🇮🇳 New Delhi</div>
+                  <div className="contact-hub-address">Connaught Place, Inner Circle</div>
                 </div>
 
-                <div style={{ padding: '12px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>🇮🇳 Mumbai</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Bandra Kurla Complex (BKC)</div>
+                <div className="contact-hub-card">
+                  <div className="contact-hub-name">🇮🇳 Mumbai</div>
+                  <div className="contact-hub-address">Bandra Kurla Complex (BKC)</div>
                 </div>
 
-                <div style={{ padding: '12px', backgroundColor: 'var(--bg-subtle)', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>🇮🇳 Kochi Hub</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Marine Drive, Ernakulam</div>
+                <div className="contact-hub-card">
+                  <div className="contact-hub-name">🇮🇳 Kochi Hub</div>
+                  <div className="contact-hub-address">Marine Drive, Ernakulam</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Column: Validated Contact Form */}
-          <div className="card contact-card-form" style={{ padding: '36px' }}>
+          <div className="card contact-card-form">
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '30px 10px' }}>
-                <div style={{
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: 'var(--radius-full)',
-                  backgroundColor: 'var(--color-success-light)',
-                  color: 'var(--color-success)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 18px auto'
-                }}>
+              <div className="contact-success-wrap">
+                <div className="contact-success-icon">
                   <CheckCircle2 size={36} />
                 </div>
-                <h3 style={{ fontSize: '1.6rem', fontWeight: 800, marginBottom: '8px' }}>
+                <h3 className="contact-success-title">
                   Message Sent Successfully!
                 </h3>
-                <p style={{ color: 'var(--text-muted)', maxWidth: '420px', margin: '0 auto 24px auto', lineHeight: 1.6 }}>
+                <p className="contact-success-text">
                   Thank you, <strong>{formData.name}</strong>. We have received your inquiry. A certified destination specialist will reach out to <strong>{formData.email}</strong> shortly.
                 </p>
                 <button onClick={resetForm} className="btn btn-secondary">
@@ -240,14 +205,14 @@ export const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '6px' }}>
+                <h3 className="contact-form-title">
                   Send An Inquiry
                 </h3>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '24px' }}>
+                <p className="contact-form-sub">
                   Fill in your travel preferences and our destination concierge will prepare a personalized itinerary.
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }} className="contact-form-row">
+                <div className="contact-form-row">
                   {/* Name Input with useRef focus */}
                   <div className="form-group">
                     <label className="form-label" htmlFor="contactName">
@@ -285,7 +250,7 @@ export const Contact = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }} className="contact-form-row">
+                <div className="contact-form-row">
                   {/* Phone Input */}
                   <div className="form-group">
                     <label className="form-label" htmlFor="contactPhone">
@@ -344,8 +309,7 @@ export const Contact = () => {
                 {/* Submit button */}
                 <button
                   type="submit"
-                  className="btn btn-primary btn-lg"
-                  style={{ width: '100%', marginTop: '8px' }}
+                  className="btn btn-primary btn-lg contact-submit-btn"
                 >
                   <Send size={18} /> Submit Travel Request
                 </button>

@@ -1,14 +1,26 @@
 /* NotFound Page Styles */
 
-.notfound-container {
+.notfound-section {
   text-align: center;
   min-height: 65vh;
   display: flex;
   align-items: center;
 }
 
-.notfound-content {
+.notfound-container {
   max-width: 580px;
+}
+
+.notfound-icon-wrap {
+  width: 84px;
+  height: 84px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px auto;
 }
 
 .notfound-code {
@@ -17,4 +29,33 @@
   color: var(--color-primary);
   line-height: 1;
   margin-bottom: 12px;
+}
+
+.notfound-heading {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.notfound-text {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.notfound-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .notfound-code {
+    font-size: 3.5rem;
+  }
+  .notfound-heading {
+    font-size: 1.4rem;
+  }
 }

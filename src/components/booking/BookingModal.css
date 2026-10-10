@@ -1,8 +1,195 @@
 /* Booking Modal Dialog Styles */
 
+.modal-preview-banner {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background-color: var(--bg-subtle);
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+.modal-preview-img {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.modal-preview-info {
+  flex: 1;
+}
+
+.modal-preview-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.modal-preview-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.modal-preview-price-box {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.modal-preview-price-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.modal-preview-price-value {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 1.15rem;
+}
+
+.modal-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.modal-field-icon-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal-guest-counter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modal-counter-btn {
+  width: 40px;
+}
+
+.modal-counter-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-width: 40px;
+  text-align: center;
+}
+
+.modal-counter-hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.modal-addons-box {
+  background-color: var(--bg-subtle);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+.modal-addons-header {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-addons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-addon-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.modal-addon-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-addon-checkbox {
+  accent-color: var(--color-primary);
+}
+
+.modal-addon-price {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.modal-price-summary-box {
+  background-color: var(--bg-subtle);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  border: 1px solid var(--border-subtle);
+}
+
+.modal-price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.modal-price-row-muted {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+.modal-price-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-main);
+}
+
+.modal-price-total-value {
+  color: var(--color-primary);
+}
+
+.modal-terms-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.modal-terms-checkbox {
+  accent-color: var(--color-primary);
+  margin-top: 3px;
+}
+
+.modal-actions-wrap {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 @media (max-width: 600px) {
   .modal-two-col {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .modal-actions-wrap {
@@ -19,17 +206,28 @@
 
 /* Mobile S (320px - 360px Viewports) */
 @media (max-width: 360px) {
+  .modal-preview-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .modal-preview-price-box {
+    text-align: left;
+  }
+
   .modal-btn-submit,
   .modal-btn-cancel {
-    padding: 10px 12px !important;
-    font-size: 0.86rem !important;
-    min-height: 42px !important;
+    padding: 10px 12px;
+    font-size: 0.86rem;
+    min-height: 42px;
   }
 
   .modal-addon-item {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
   .modal-addon-item > span:last-child {
@@ -38,19 +236,19 @@
   }
 
   .modal-guest-counter {
-    gap: 6px !important;
+    gap: 6px;
   }
 
   .modal-price-summary-box {
-    padding: 10px 12px !important;
+    padding: 10px 12px;
   }
 
   .modal-price-summary-box div {
-    font-size: 0.8rem !important;
+    font-size: 0.8rem;
   }
 
   .modal-price-total-row {
-    font-size: 1.05rem !important;
-    padding-top: 8px !important;
+    font-size: 1.05rem;
+    padding-top: 8px;
   }
 }

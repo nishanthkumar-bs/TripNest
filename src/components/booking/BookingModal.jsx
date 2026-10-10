@@ -226,36 +226,28 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         </div>
 
         {/* Package mini preview banner */}
-        <div style={{
-          display: 'flex',
-          gap: '14px',
-          alignItems: 'center',
-          backgroundColor: 'var(--bg-subtle)',
-          padding: '12px 14px',
-          borderRadius: 'var(--radius-md)',
-          marginBottom: '20px'
-        }}>
+        <div className="modal-preview-banner">
           <img
             src={currentPkg.image}
             alt={currentPkg.title}
-            style={{ width: '64px', height: '64px', borderRadius: 'var(--radius-sm)', objectFit: 'cover' }}
+            className="modal-preview-img"
           />
-          <div style={{ flex: 1 }}>
-            <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-main)' }}>{currentPkg.destination}, {currentPkg.country}</div>
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>{currentPkg.durationDays} Days / {currentPkg.durationNights} Nights • {currentPkg.category} Experience</div>
+          <div className="modal-preview-info">
+            <div className="modal-preview-title">{currentPkg.destination}, {currentPkg.country}</div>
+            <div className="modal-preview-sub">{currentPkg.durationDays} Days / {currentPkg.durationNights} Nights • {currentPkg.category} Experience</div>
           </div>
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Base Package</div>
-            <div style={{ fontWeight: 800, color: 'var(--color-primary)', fontSize: '1.15rem' }}>₹{currentPkg.price.toLocaleString('en-IN')}</div>
+          <div className="modal-preview-price-box">
+            <div className="modal-preview-price-label">Base Package</div>
+            <div className="modal-preview-price-value">₹{currentPkg.price.toLocaleString('en-IN')}</div>
           </div>
         </div>
 
         {/* 2-Column Traveler info */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }} className="modal-two-col">
+        <div className="modal-two-col">
           {/* Full Name with useRef */}
           <div className="form-group">
             <label className="form-label" htmlFor="travelerName">
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span className="modal-field-icon-label">
                 <User size={15} /> Lead Traveler Name *
               </span>
             </label>
@@ -275,7 +267,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
           {/* Email Address */}
           <div className="form-group">
             <label className="form-label" htmlFor="email">
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span className="modal-field-icon-label">
                 <Mail size={15} /> Email Address *
               </span>
             </label>
@@ -292,11 +284,11 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }} className="modal-two-col">
+        <div className="modal-two-col">
           {/* Indian Phone Number */}
           <div className="form-group">
             <label className="form-label" htmlFor="phone">
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span className="modal-field-icon-label">
                 <Phone size={15} /> Mobile Number (+91 India) *
               </span>
             </label>
@@ -315,7 +307,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
           {/* Departure Date */}
           <div className="form-group">
             <label className="form-label" htmlFor="departureDate">
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span className="modal-field-icon-label">
                 <Calendar size={15} /> Departure Date *
               </span>
             </label>
@@ -334,89 +326,82 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         {/* Guests count (controlled by useReducer dispatch) */}
         <div className="form-group">
           <label className="form-label">
-            <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span className="modal-field-icon-label">
               <Users size={15} /> Number of Travelers: <strong>{calcState.guests}</strong>
             </span>
           </label>
-          <div className="modal-guest-counter" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          <div className="modal-guest-counter">
             <button
               type="button"
-              className="btn btn-secondary btn-sm"
+              className="btn btn-secondary btn-sm modal-counter-btn"
               onClick={() => calcDispatch({ type: 'SET_GUESTS', payload: calcState.guests - 1 })}
               disabled={calcState.guests <= 1}
-              style={{ width: '40px' }}
             >
               -
             </button>
-            <span style={{ fontSize: '1.1rem', fontWeight: 700, minWidth: '40px', textAlign: 'center' }}>
+            <span className="modal-counter-value">
               {calcState.guests} {calcState.guests === 1 ? 'Guest' : 'Guests'}
             </span>
             <button
               type="button"
-              className="btn btn-secondary btn-sm"
+              className="btn btn-secondary btn-sm modal-counter-btn"
               onClick={() => calcDispatch({ type: 'SET_GUESTS', payload: calcState.guests + 1 })}
               disabled={calcState.guests >= 10}
-              style={{ width: '40px' }}
             >
               +
             </button>
-            <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>(Max 10 guests per booking)</span>
+            <span className="modal-counter-hint">(Max 10 guests per booking)</span>
           </div>
         </div>
 
         {/* Add-ons Section in Rupees (controlled by useReducer) */}
-        <div style={{
-          backgroundColor: 'var(--bg-subtle)',
-          padding: '16px',
-          borderRadius: 'var(--radius-md)',
-          marginBottom: '20px'
-        }}>
-          <div style={{ fontSize: '0.88rem', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div className="modal-addons-box">
+          <div className="modal-addons-header">
             <Sparkles size={16} color="var(--color-primary)" />
             Optional Add-ons (Pricing in ₹)
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <label className="modal-addon-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="modal-addons-list">
+            <label className="modal-addon-item">
+              <span className="modal-addon-content">
                 <input
                   type="checkbox"
                   checked={calcState.addons.insurance}
                   onChange={() => calcDispatch({ type: 'TOGGLE_ADDON', payload: 'insurance' })}
-                  style={{ accentColor: 'var(--color-primary)' }}
+                  className="modal-addon-checkbox"
                 />
                 <Shield size={16} color="var(--color-success)" />
                 Comprehensive Travel & Medical Insurance
               </span>
-              <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>+₹{ADDON_PRICES.insurance} / guest</span>
+              <span className="modal-addon-price">+₹{ADDON_PRICES.insurance} / guest</span>
             </label>
 
-            <label className="modal-addon-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <label className="modal-addon-item">
+              <span className="modal-addon-content">
                 <input
                   type="checkbox"
                   checked={calcState.addons.airportTransfer}
                   onChange={() => calcDispatch({ type: 'TOGGLE_ADDON', payload: 'airportTransfer' })}
-                  style={{ accentColor: 'var(--color-primary)' }}
+                  className="modal-addon-checkbox"
                 />
                 <Plane size={16} color="var(--color-primary)" />
                 Private Airport / Station AC Cab Pick & Drop
               </span>
-              <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>+₹{ADDON_PRICES.airportTransfer} flat</span>
+              <span className="modal-addon-price">+₹{ADDON_PRICES.airportTransfer} flat</span>
             </label>
 
-            <label className="modal-addon-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontSize: '0.9rem' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <label className="modal-addon-item">
+              <span className="modal-addon-content">
                 <input
                   type="checkbox"
                   checked={calcState.addons.privateGuide}
                   onChange={() => calcDispatch({ type: 'TOGGLE_ADDON', payload: 'privateGuide' })}
-                  style={{ accentColor: 'var(--color-primary)' }}
+                  className="modal-addon-checkbox"
                 />
                 <User size={16} color="var(--color-accent)" />
                 Dedicated Certified Local Historian Guide
               </span>
-              <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>+₹{ADDON_PRICES.privateGuide} flat</span>
+              <span className="modal-addon-price">+₹{ADDON_PRICES.privateGuide} flat</span>
             </label>
           </div>
         </div>
@@ -438,53 +423,39 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         </div>
 
         {/* Dynamic Price Summary Box in Rupees */}
-        <div className="modal-price-summary-box" style={{
-          backgroundColor: 'var(--bg-subtle)',
-          padding: '16px 20px',
-          borderRadius: 'var(--radius-md)',
-          marginBottom: '20px',
-          border: '1px solid var(--border-subtle)'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '6px' }}>
+        <div className="modal-price-summary-box">
+          <div className="modal-price-row">
             <span>Base Package (₹{currentPkg.price.toLocaleString('en-IN')} × {calcState.guests} guests):</span>
             <span>₹{pricing.baseTotal.toLocaleString('en-IN')}</span>
           </div>
 
           {pricing.addonsTotal > 0 && (
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '6px' }}>
+            <div className="modal-price-row">
               <span>Selected Add-ons:</span>
               <span>+₹{pricing.addonsTotal.toLocaleString('en-IN')}</span>
             </div>
           )}
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '6px', color: 'var(--text-muted)' }}>
+          <div className="modal-price-row-muted">
             <span>GST & Tourism Fees (5%):</span>
             <span>+₹{pricing.taxesAndFees.toLocaleString('en-IN')}</span>
           </div>
 
-          <div className="modal-price-total-row" style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            fontSize: '1.2rem',
-            fontWeight: 800,
-            paddingTop: '10px',
-            borderTop: '1px solid var(--border-subtle)',
-            color: 'var(--text-main)'
-          }}>
+          <div className="modal-price-total-row">
             <span>Total Payable:</span>
-            <span style={{ color: 'var(--color-primary)' }}>₹{pricing.grandTotal.toLocaleString('en-IN')}</span>
+            <span className="modal-price-total-value">₹{pricing.grandTotal.toLocaleString('en-IN')}</span>
           </div>
         </div>
 
         {/* Terms Agreement Checkbox */}
         <div className="form-group">
-          <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+          <label className="modal-terms-label">
             <input
               type="checkbox"
               name="agreeTerms"
               checked={formData.agreeTerms}
               onChange={handleInputChange}
-              style={{ accentColor: 'var(--color-primary)', marginTop: '3px' }}
+              className="modal-terms-checkbox"
             />
             <span>
               I agree to the TripNest booking terms, 72-hour cancellation policy, and passenger identity verification guidelines.
@@ -494,7 +465,7 @@ export const BookingModal = ({ isOpen, onClose, initialPackage = null, bookingTo
         </div>
 
         {/* Submit Actions */}
-        <div className="modal-actions-wrap" style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
+        <div className="modal-actions-wrap">
           <button type="button" onClick={onClose} className="btn btn-secondary modal-btn-cancel">
             Cancel
           </button>

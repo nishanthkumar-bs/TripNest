@@ -1,16 +1,52 @@
 /* Packages Page Styles */
 
-.packages-page {
-  /* Layout and container styles for catalog view */
+.packages-page-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 36px auto;
 }
 
-.packages-empty-state {
+.packages-error-card {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-danger);
+}
+
+.packages-error-icon {
+  margin: 0 auto 12px auto;
+}
+
+.packages-empty-card {
   padding: 60px 20px;
   text-align: center;
 }
 
-.packages-error-state {
-  padding: 40px;
-  text-align: center;
-  color: var(--color-danger);
+.packages-empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.packages-empty-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.packages-empty-desc {
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto 20px auto;
+}
+
+@media (max-width: 480px) {
+  .packages-empty-card {
+    padding: 36px 16px;
+  }
 }

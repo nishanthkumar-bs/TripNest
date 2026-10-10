@@ -66,7 +66,108 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
+.bookings-page-title {
+  margin-bottom: 6px;
+}
 
+.bookings-search-input {
+  padding-left: 36px !important;
+  padding-right: 12px !important;
+  font-size: 0.88rem !important;
+}
+
+.bookings-empty-card {
+  padding: 60px 24px !important;
+  text-align: center !important;
+}
+
+.bookings-empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.bookings-empty-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.bookings-empty-desc {
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto 24px auto;
+}
+
+.bookings-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ticket-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+
+.ticket-brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.ticket-brand-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.ticket-id-code {
+  font-family: monospace;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.ticket-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ticket-detail-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ticket-detail-value {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.ticket-detail-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.ticket-footer-notice {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 10px;
+}
 /* Delete Confirmation Card Styles */
 .delete-confirm-card {
   display: flex;
@@ -338,4 +439,11 @@
     grid-template-columns: 1fr;
     gap: 12px;
   }
+}
+
+.bookings-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
 }

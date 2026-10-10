@@ -1,7 +1,22 @@
 /* Wishlist Page Styles */
 
-.wishlist-page {
-  /* Layout and container styles for wishlist */
+.wishlist-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.wishlist-title {
+  margin-bottom: 6px;
+}
+
+.wishlist-clear-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .wishlist-empty-card {
@@ -19,4 +34,22 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px auto;
+}
+
+.wishlist-empty-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.wishlist-empty-desc {
+  color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto 24px auto;
+}
+
+@media (max-width: 480px) {
+  .wishlist-empty-card {
+    padding: 36px 16px;
+  }
 }

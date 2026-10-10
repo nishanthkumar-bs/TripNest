@@ -1,68 +1,64 @@
 import { useState } from 'react';
 import useDocumentTitle from '../hooks/useDocumentTitle';
-import { Compass, ShieldCheck, Heart, Globe, Users, Award, ChevronDown, Sparkles } from 'lucide-react';
+import { Compass, Users, Sparkles, Award, ChevronDown } from 'lucide-react';
 import './About.css';
 
 export const About = () => {
-  useDocumentTitle('About Us — The TripNest Story');
+  useDocumentTitle('About Us — Our Story & Mission');
   const [activeFaq, setActiveFaq] = useState(0);
 
   const teamMembers = [
     {
-      name: 'Vikramaditya Rathore',
-      role: 'Co-Founder & Chief Expedition Architect',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-      bio: 'Mountaineer and wildlife naturalist with over 16 years leading high-altitude Himalayan treks and heritage palace expeditions.'
+      name: 'Dr. Ananya Roy',
+      role: 'Founder & Head of Curation',
+      bio: 'Former cultural anthropologist with 16 years of expeditionary field experience spanning 45 countries.',
+      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80'
     },
     {
-      name: 'Ananya Deshmukh',
-      role: 'Head of Hospitality & Heritage Stays',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-      bio: 'Over 14 years auditing royal heritage havelis, luxury houseboats in Alleppey, and world-class Ayurvedic wellness resorts.'
+      name: 'Rohan Mehra',
+      role: 'Chief Experience Officer',
+      bio: 'Luxury adventure specialist dedicated to architecting authentic, seamless itineraries for families and private groups.',
+      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'
     },
     {
-      name: 'Dr. Arjun Nambiar',
-      role: 'Director of Cultural Immersion & Ethics',
-      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
-      bio: 'Anthropologist dedicated to ensuring that 100% of our local partner guides, boatmen, and artisans in India receive fair living compensation.'
+      name: 'Kavita Nair',
+      role: 'Sustainability & Community Director',
+      bio: 'Passionate conservationist ensuring all our partners observe fair-wage tourism and zero-waste trail practices.',
+      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80'
     }
   ];
 
   const faqs = [
     {
-      q: 'How does TripNest select its tour packages and accommodations?',
-      a: 'We physically vet every boutique hotel, eco-lodge, private transfer operator, and local guide. We do not use bulk aggregator algorithms; every itinerary is curated and verified by our on-the-ground regional specialists.'
+      q: 'How does the TripNest guaranteed booking confirmation work?',
+      a: 'When you submit a reservation with your 20% advance token, our concierge team immediately places direct holds with verified accommodation and local transport partners. You receive your formal electronic voucher within minutes with verified confirmation codes.'
     },
     {
-      q: 'What is your cancellation and reschedule policy?',
-      a: 'TripNest provides a free cancellation grace window of up to 72 hours from booking. Additionally, most confirmed packages allow one free date reschedule up to 14 days before your departure date.'
+      q: 'What is your cancellation and rescheduling policy?',
+      a: 'We understand plans change. All standard TripNest bookings come with 100% refund capability up to 72 hours before the scheduled departure date. Rescheduling your dates within a 6-month window is always complimentary subject to seasonal availability.'
     },
     {
-      q: 'Are flights included in the package prices?',
-      a: 'Our core package prices cover high-standard boutique hotels, private local transfers, expert guides, entry tickets, and daily gourmet breakfasts. International flights can be added seamlessly via our Flights & Charters concierge.'
+      q: 'Can I customize any of the itineraries featured in the catalog?',
+      a: 'Absolutely! Our Custom Itineraries team specializes in bespoke journeys. Simply pick any starting package as your foundation and request day-level alterations, room upgrades, dietary preferences, or private transport additions.'
     },
     {
-      q: 'Can itineraries be customized for special dietary or accessibility needs?',
-      a: 'Absolutely! Whether you require strict halal, vegan, gluten-free dining, wheelchair-accessible transport, or sensory-friendly paces, simply enter your notes during booking or contact our 24/7 concierge.'
+      q: 'Are local transfers and airport pickups included?',
+      a: 'You can opt to include our private Airport & Station pickup add-on during checkout. Our vetted chauffeurs track your flight in real time and greet you right outside the arrivals lounge with a name placard.'
     }
   ];
 
   return (
     <div>
       {/* Hero Header */}
-      <section style={{
-        background: 'linear-gradient(180deg, var(--color-primary-light) 0%, transparent 100%)',
-        padding: '70px 0 50px 0',
-        textAlign: 'center'
-      }}>
+      <section className="about-hero">
         <div className="container">
           <span className="section-pill">
             <Compass size={14} /> Our Story & Mission
           </span>
-          <h1 className="section-title" style={{ maxWidth: '800px', margin: '0 auto 16px auto' }}>
+          <h1 className="section-title about-hero-title">
             We Believe Travel Should Be Immersive, Effortless & Transformative
           </h1>
-          <p className="section-desc" style={{ maxWidth: '680px', margin: '0 auto' }}>
+          <p className="section-desc about-hero-desc">
             Founded in 2021 by a team of avid explorers and hospitality veterans, TripNest was born out of a simple conviction: booking a once-in-a-lifetime vacation shouldn’t feel like navigating a spreadsheet.
           </p>
         </div>
@@ -71,32 +67,27 @@ export const About = () => {
       {/* Story & Philosophy */}
       <section className="section-py">
         <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '40px',
-            alignItems: 'center'
-          }}>
+          <div className="about-story-grid">
             <div>
               <span className="section-pill">
                 <Sparkles size={14} /> The Philosophy
               </span>
-              <h2 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '18px', color: 'var(--text-main)' }}>
+              <h2 className="about-story-title">
                 Curating Journeys That Leave A Mark On Your Soul
               </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '16px' }}>
+              <p className="about-story-text">
                 Mass tourism tends to herd people into generic buses and cookie-cutter tourist traps. TripNest exists to do the exact opposite. We connect modern travelers with authentic traditions, untamed nature, and private sanctuaries where you can breathe, reflect, and wonder.
               </p>
-              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: 1.7 }}>
+              <p className="about-story-text">
                 By directly partnering with indigenous guides, small eco-friendly lodges, and vetted drivers, we keep tourism dollars inside local communities while guaranteeing unmatched service quality for you.
               </p>
             </div>
 
-            <div style={{ height: '420px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)' }}>
+            <div className="about-story-img-wrap">
               <img
                 src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=80"
                 alt="Travel exploration"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                className="about-story-img"
               />
             </div>
           </div>
@@ -104,44 +95,39 @@ export const About = () => {
       </section>
 
       {/* Stats Counter Section */}
-      <section className="section-py" style={{ backgroundColor: 'var(--bg-subtle)' }}>
+      <section className="section-py about-stats-section">
         <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '24px',
-            textAlign: 'center'
-          }}>
-            <div className="card" style={{ padding: '32px' }}>
-              <div style={{ fontSize: '2.6rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '4px' }}>
+          <div className="about-stats-grid">
+            <div className="card about-stat-card">
+              <div className="about-stat-number about-stat-primary">
                 45K+
               </div>
-              <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Global Travelers</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Explored with our guides</div>
+              <div className="about-stat-label">Global Travelers</div>
+              <div className="about-stat-sub">Explored with our guides</div>
             </div>
 
-            <div className="card" style={{ padding: '32px' }}>
-              <div style={{ fontSize: '2.6rem', fontWeight: 800, color: 'var(--color-secondary)', marginBottom: '4px' }}>
+            <div className="card about-stat-card">
+              <div className="about-stat-number about-stat-secondary">
                 120+
               </div>
-              <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Curated Packages</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Across 38 countries</div>
+              <div className="about-stat-label">Curated Packages</div>
+              <div className="about-stat-sub">Across 38 countries</div>
             </div>
 
-            <div className="card" style={{ padding: '32px' }}>
-              <div style={{ fontSize: '2.6rem', fontWeight: 800, color: 'var(--color-accent)', marginBottom: '4px' }}>
+            <div className="card about-stat-card">
+              <div className="about-stat-number about-stat-accent">
                 99.4%
               </div>
-              <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Satisfaction Rate</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Based on verified reviews</div>
+              <div className="about-stat-label">Satisfaction Rate</div>
+              <div className="about-stat-sub">Based on verified reviews</div>
             </div>
 
-            <div className="card" style={{ padding: '32px' }}>
-              <div style={{ fontSize: '2.6rem', fontWeight: 800, color: 'var(--color-success)', marginBottom: '4px' }}>
+            <div className="card about-stat-card">
+              <div className="about-stat-number about-stat-success">
                 24/7
               </div>
-              <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>Concierge Desk</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Around-the-clock peace of mind</div>
+              <div className="about-stat-label">Concierge Desk</div>
+              <div className="about-stat-sub">Around-the-clock peace of mind</div>
             </div>
           </div>
         </div>
@@ -164,19 +150,19 @@ export const About = () => {
 
           <div className="grid-3">
             {teamMembers.map((member, idx) => (
-              <div key={idx} className="card" style={{ padding: '24px', textAlign: 'center' }}>
-                <div style={{ width: '130px', height: '130px', borderRadius: 'var(--radius-full)', overflow: 'hidden', margin: '0 auto 18px auto', border: '3px solid var(--color-primary-light)' }}>
+              <div key={idx} className="card about-team-card">
+                <div className="about-team-avatar-wrap">
                   <img
                     src={member.image}
                     alt={member.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    className="about-team-avatar"
                   />
                 </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '4px' }}>{member.name}</h3>
-                <div style={{ color: 'var(--color-primary)', fontWeight: 600, fontSize: '0.85rem', marginBottom: '12px' }}>
+                <h3 className="about-team-name">{member.name}</h3>
+                <div className="about-team-role">
                   {member.role}
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6 }}>
+                <p className="about-team-bio">
                   {member.bio}
                 </p>
               </div>
@@ -186,8 +172,8 @@ export const About = () => {
       </section>
 
       {/* Interactive FAQ Accordion */}
-      <section className="section-py" style={{ backgroundColor: 'var(--bg-subtle)' }}>
-        <div className="container" style={{ maxWidth: '820px' }}>
+      <section className="section-py about-faq-section">
+        <div className="container about-faq-container">
           <div className="section-heading">
             <span className="section-pill">
               <Award size={14} /> Clarity & Transparency
@@ -200,46 +186,25 @@ export const About = () => {
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div className="about-faq-list">
             {faqs.map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
-                <div key={idx} className="card" style={{ overflow: 'hidden' }}>
+                <div key={idx} className="card about-faq-card">
                   <button
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    style={{
-                      width: '100%',
-                      padding: '20px 24px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      textAlign: 'left',
-                      gap: '16px',
-                      background: 'none'
-                    }}
+                    className="about-faq-btn"
                   >
-                    <span style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                    <span className="about-faq-question">
                       {faq.q}
                     </span>
                     <ChevronDown
                       size={20}
-                      style={{
-                        transform: isOpen ? 'rotate(180deg)' : 'none',
-                        transition: 'transform 0.2s',
-                        color: 'var(--text-muted)',
-                        flexShrink: 0
-                      }}
+                      className={`about-faq-arrow ${isOpen ? 'open' : ''}`}
                     />
                   </button>
                   {isOpen && (
-                    <div style={{
-                      padding: '0 24px 22px 24px',
-                      color: 'var(--text-muted)',
-                      fontSize: '0.96rem',
-                      lineHeight: 1.65,
-                      borderTop: '1px solid var(--border-subtle)',
-                      paddingTop: '16px'
-                    }}>
+                    <div className="about-faq-body">
                       {faq.a}
                     </div>
                   )}

@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { toggleWishlist } from '../redux/wishlistSlice';
-import { useNotification } from '../context/NotificationContext';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 import { travelApi } from '../services/api';
-import RatingStars from '../components/common/RatingStars';
 import Badge from '../components/common/Badge';
+import RatingStars from '../components/common/RatingStars';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import {
   MapPin,
@@ -15,33 +14,29 @@ import {
   Compass,
   Check,
   X,
+  ChevronDown,
   Heart,
   ShieldCheck,
-  Sparkles,
   Calendar,
+  Sparkles,
   ArrowLeft,
-  ChevronDown,
   Award
 } from 'lucide-react';
 import './PackageDetail.css';
 
 export const PackageDetail = ({ onOpenBookingModal }) => {
-  // React Router DOM: useParams!
   const { id } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { showNotification } = useNotification();
 
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Local state for active gallery image index
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  // Local state for itinerary accordion expansion
   const [openDay, setOpenDay] = useState(1);
-
-  const wishlist = useSelector((state) => state.wishlist?.items || []);
-  const isWishlisted = pkg ? wishlist.includes(pkg.id) : false;
-
-  useDocumentTitle(pkg ? `${pkg.title} | Itinerary & Details` : 'Package Details');
 
   useEffect(() => {
     let isMounted = true;
@@ -65,29 +60,38 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
     };
 
     fetchPackage();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
+  // Redux Wishlist state
+  const wishlist = useSelector((state) => state.wishlist?.items || []);
+  const isWishlisted = pkg ? wishlist.includes(pkg.id) : false;
+
+  // Document Title update
+  useDocumentTitle(pkg ? `${pkg.title} (${pkg.destination})` : 'Destination Details');
+
   const handleWishlistToggle = () => {
-    if (!pkg) return;
-    dispatch(toggleWishlist(pkg.id));
-    if (isWishlisted) {
-      showNotification(`Removed "${pkg.destination}" from your saved list.`, 'info');
-    } else {
-      showNotification(`Saved "${pkg.destination}" to your bucket list! ❤️`, 'success');
+    if (pkg) {
+      dispatch(toggleWishlist(pkg.id));
     }
   };
 
   if (loading) {
-    return <LoadingSpinner text="Retrieving comprehensive itinerary details..." />;
+    return (
+      <div className="section-py">
+        <LoadingSpinner text="Loading destination itinerary..." />
+      </div>
+    );
   }
 
   if (error || !pkg) {
     return (
-      <div className="container section-py" style={{ textAlign: 'center' }}>
-        <div className="card" style={{ padding: '60px 24px', maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '12px' }}>Destination Not Found</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
+      <div className="container section-py detail-notfound-container">
+        <div className="card detail-notfound-card">
+          <h2 className="detail-notfound-title">Destination Not Found</h2>
+          <p className="detail-notfound-desc">
             {error || 'The travel package you are looking for does not exist or may have been retired.'}
           </p>
           <Link to="/packages" className="btn btn-primary">
@@ -101,40 +105,39 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
   const galleryImages = [pkg.image, ...(pkg.gallery || [])];
 
   return (
-    <div className="section-py" style={{ paddingTop: '30px' }}>
+    <div className="section-py detail-page-container">
       <div className="container">
         {/* Breadcrumb back navigation */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-          <Link to="/" style={{ color: 'inherit' }}>Home</Link>
+        <div className="detail-breadcrumbs">
+          <Link to="/" className="detail-breadcrumb-link">Home</Link>
           <span>/</span>
-          <Link to="/packages" style={{ color: 'inherit' }}>Destinations</Link>
+          <Link to="/packages" className="detail-breadcrumb-link">Destinations</Link>
           <span>/</span>
-          <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{pkg.destination}</span>
+          <span className="detail-breadcrumb-current">{pkg.destination}</span>
         </div>
 
         {/* Title & Header Section */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: '20px', marginBottom: '24px' }}>
+        <div className="detail-header-row">
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+            <div className="detail-badges-row">
               <Badge variant="primary">{pkg.category}</Badge>
               {pkg.badge && <Badge variant="success">{pkg.badge}</Badge>}
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span className="detail-location-tag">
                 <MapPin size={15} color="var(--color-primary)" /> {pkg.destination}, {pkg.country}
               </span>
             </div>
-            <h1 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1.25 }}>
+            <h1 className="detail-title">
               {pkg.title}
             </h1>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginTop: '6px' }}>
+            <p className="detail-tagline">
               {pkg.tagline}
             </p>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="detail-header-actions">
             <button
               onClick={handleWishlistToggle}
-              className="btn btn-secondary"
-              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              className="btn btn-secondary detail-save-btn"
             >
               <Heart size={18} fill={isWishlisted ? '#ef4444' : 'none'} color={isWishlisted ? '#ef4444' : 'currentColor'} />
               {isWishlisted ? 'Saved' : 'Save to Wishlist'}
@@ -143,43 +146,28 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
         </div>
 
         {/* Visual Gallery Showcase */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '2fr 1fr',
-          gap: '16px',
-          height: '460px',
-          borderRadius: 'var(--radius-xl)',
-          overflow: 'hidden',
-          marginBottom: '40px'
-        }} className="gallery-container">
+        <div className="gallery-container">
           {/* Main Large Display */}
-          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <div className="gallery-main-view">
             <img
               src={galleryImages[activeImageIndex] || pkg.image}
               alt={pkg.title}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.3s ease' }}
+              className="gallery-main-img"
             />
           </div>
 
           {/* Side Thumbnail Stacks */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', height: '100%' }}>
+          <div className="gallery-thumb-stack">
             {galleryImages.slice(1, 3).map((imgUrl, i) => (
               <div
                 key={i}
                 onClick={() => setActiveImageIndex(i + 1)}
-                style={{
-                  flex: 1,
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  border: activeImageIndex === (i + 1) ? '3px solid var(--color-primary)' : 'none',
-                  borderRadius: 'var(--radius-lg)'
-                }}
+                className={`gallery-thumb-item ${activeImageIndex === (i + 1) ? 'active' : ''}`}
               >
                 <img
                   src={imgUrl}
                   alt={`Gallery ${i}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  className="gallery-thumb-img"
                 />
               </div>
             ))}
@@ -187,78 +175,64 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
         </div>
 
         {/* 2-Column Layout: Left Content & Right Sticky Booking Card */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.8fr 1fr',
-          gap: '40px',
-          alignItems: 'start'
-        }} className="detail-layout">
+        <div className="detail-layout">
           {/* Left Column: Itinerary, Inclusions, Overview */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
+          <div className="detail-main-column">
             {/* Quick Stats Grid */}
-            <div
-              className="card quick-stats-grid"
-              style={{
-                padding: '24px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '16px',
-                textAlign: 'center'
-              }}
-            >
+            <div className="card quick-stats-grid">
               <div>
-                <div style={{ color: 'var(--color-primary)', display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
+                <div className="quick-stat-icon-wrap quick-stat-icon-primary">
                   <Clock size={24} />
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Duration</div>
-                <div style={{ fontSize: '1.05rem', fontWeight: 800 }}>{pkg.durationDays}D / {pkg.durationNights}N</div>
+                <div className="quick-stat-label">Duration</div>
+                <div className="quick-stat-val">{pkg.durationDays}D / {pkg.durationNights}N</div>
               </div>
 
               <div>
-                <div style={{ color: 'var(--color-secondary)', display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
+                <div className="quick-stat-icon-wrap quick-stat-icon-secondary">
                   <Users size={24} />
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Group Size</div>
-                <div style={{ fontSize: '1.05rem', fontWeight: 800 }}>Max {pkg.maxGroupSize} People</div>
+                <div className="quick-stat-label">Group Size</div>
+                <div className="quick-stat-val">Max {pkg.maxGroupSize} People</div>
               </div>
 
               <div>
-                <div style={{ color: 'var(--color-accent)', display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
+                <div className="quick-stat-icon-wrap quick-stat-icon-accent">
                   <Compass size={24} />
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Pace</div>
-                <div style={{ fontSize: '1.05rem', fontWeight: 800 }}>{pkg.difficulty}</div>
+                <div className="quick-stat-label">Pace</div>
+                <div className="quick-stat-val">{pkg.difficulty}</div>
               </div>
 
               <div>
-                <div style={{ color: '#f59e0b', display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
+                <div className="quick-stat-icon-wrap quick-stat-icon-warning">
                   <Award size={24} />
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Rating</div>
-                <div style={{ fontSize: '1.05rem', fontWeight: 800 }}>{pkg.rating} ({pkg.reviewsCount})</div>
+                <div className="quick-stat-label">Rating</div>
+                <div className="quick-stat-val">{pkg.rating} ({pkg.reviewsCount})</div>
               </div>
             </div>
 
             {/* Overview */}
             <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '14px' }}>Tour Overview</h2>
-              <p style={{ fontSize: '1.05rem', color: 'var(--text-main)', lineHeight: 1.7 }}>
+              <h2 className="detail-overview-title">Tour Overview</h2>
+              <p className="detail-overview-text">
                 {pkg.overview}
               </p>
             </div>
 
             {/* Highlights */}
-            <div className="card" style={{ padding: '28px' }}>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '18px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="card detail-highlights-card">
+              <h3 className="detail-highlights-title">
                 <Sparkles size={20} color="var(--color-primary)" /> Journey Highlights
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px' }}>
+              <div className="detail-highlights-grid">
                 {pkg.highlights.map((h, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                    <div style={{ color: 'var(--color-primary)', marginTop: '2px', flexShrink: 0 }}>
+                  <div key={idx} className="detail-highlight-item">
+                    <div className="detail-highlight-icon">
                       <Check size={18} />
                     </div>
-                    <span style={{ fontSize: '0.95rem', color: 'var(--text-main)', lineHeight: 1.5 }}>
+                    <span className="detail-highlight-text">
                       {h}
                     </span>
                   </div>
@@ -268,68 +242,37 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
 
             {/* Day-by-Day Itinerary Accordion */}
             <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '18px' }}>
+              <h2 className="detail-itinerary-title">
                 Day-by-Day Itinerary ({pkg.durationDays} Days)
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="detail-itinerary-list">
                 {pkg.itinerary.map((item) => {
                   const isOpen = openDay === item.day;
                   return (
                     <div
                       key={item.day}
-                      className="card"
-                      style={{ overflow: 'hidden', transition: 'all var(--transition-fast)' }}
+                      className="card itinerary-day-card"
                     >
                       <button
                         onClick={() => setOpenDay(isOpen ? null : item.day)}
-                        style={{
-                          width: '100%',
-                          padding: '18px 24px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          textAlign: 'left',
-                          gap: '12px',
-                          background: 'none'
-                        }}
+                        className="itinerary-accordion-btn"
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                          <span style={{
-                            width: '36px',
-                            height: '36px',
-                            borderRadius: 'var(--radius-full)',
-                            backgroundColor: isOpen ? 'var(--color-primary)' : 'var(--bg-subtle)',
-                            color: isOpen ? '#ffffff' : 'var(--text-main)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 800,
-                            fontSize: '0.9rem',
-                            flexShrink: 0
-                          }}>
+                        <div className="itinerary-accordion-left">
+                          <span className={`itinerary-day-badge ${isOpen ? 'open' : ''}`}>
                             {item.day}
                           </span>
-                          <span style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                          <span className="itinerary-day-title">
                             Day {item.day}: {item.title}
                           </span>
                         </div>
                         <ChevronDown
                           size={18}
-                          style={{
-                            transform: isOpen ? 'rotate(180deg)' : 'none',
-                            transition: 'transform 0.2s',
-                            color: 'var(--text-muted)'
-                          }}
+                          className={`itinerary-arrow-icon ${isOpen ? 'open' : ''}`}
                         />
                       </button>
 
                       {isOpen && (
-                        <div style={{
-                          padding: '0 24px 20px 74px',
-                          color: 'var(--text-muted)',
-                          fontSize: '0.96rem',
-                          lineHeight: 1.6
-                        }}>
+                        <div className="itinerary-desc-box">
                           {item.desc}
                         </div>
                       )}
@@ -340,16 +283,16 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
             </div>
 
             {/* Inclusions & Exclusions */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            <div className="inclusions-exclusions-grid">
               {/* Included */}
-              <div className="card" style={{ padding: '24px' }}>
-                <h4 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '16px', color: 'var(--color-success)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="card inclusion-card">
+                <h4 className="inclusion-card-title">
                   <Check size={20} /> What’s Included
                 </h4>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <ul className="inclusion-list">
                   {pkg.included.map((inc, i) => (
-                    <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.92rem', color: 'var(--text-main)' }}>
-                      <Check size={16} color="var(--color-success)" style={{ marginTop: '3px', flexShrink: 0 }} />
+                    <li key={i} className="inclusion-item">
+                      <Check size={16} color="var(--color-success)" className="inclusion-icon" />
                       <span>{inc}</span>
                     </li>
                   ))}
@@ -357,14 +300,14 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
               </div>
 
               {/* Excluded */}
-              <div className="card" style={{ padding: '24px' }}>
-                <h4 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '16px', color: 'var(--color-danger)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="card inclusion-card">
+                <h4 className="exclusion-card-title">
                   <X size={20} /> What’s Excluded
                 </h4>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <ul className="inclusion-list">
                   {pkg.excluded.map((exc, i) => (
-                    <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.92rem', color: 'var(--text-muted)' }}>
-                      <X size={16} color="var(--color-danger)" style={{ marginTop: '3px', flexShrink: 0 }} />
+                    <li key={i} className="inclusion-item excluded">
+                      <X size={16} color="var(--color-danger)" className="inclusion-icon" />
                       <span>{exc}</span>
                     </li>
                   ))}
@@ -374,17 +317,17 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
           </div>
 
           {/* Right Column: Sticky Booking Widget Card */}
-          <div className="detail-sidebar-wrap" style={{ position: 'sticky', top: '100px' }}>
-            <div className="card" style={{ padding: '28px', boxShadow: 'var(--shadow-xl)', border: '1.5px solid var(--border-subtle)' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '14px' }}>
+          <div className="detail-sidebar-wrap">
+            <div className="card booking-widget-card">
+              <div className="widget-price-row">
                 <div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Price per traveler</div>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                    <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)' }}>
+                  <div className="widget-price-label">Price per traveler</div>
+                  <div className="widget-price-group">
+                    <span className="widget-current-price">
                       ₹{pkg.price.toLocaleString('en-IN')}
                     </span>
                     {pkg.originalPrice && (
-                      <span style={{ fontSize: '1rem', color: 'var(--text-light)', textDecoration: 'line-through' }}>
+                      <span className="widget-original-price">
                         ₹{pkg.originalPrice.toLocaleString('en-IN')}
                       </span>
                     )}
@@ -393,17 +336,17 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
                 <RatingStars rating={pkg.rating} reviewsCount={pkg.reviewsCount} />
               </div>
 
-              <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '16px', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="widget-perks-box">
+                <div className="widget-perks-list">
+                  <div className="widget-perk-item">
                     <ShieldCheck size={16} color="var(--color-success)" />
                     Free 72-hour cancellation policy
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div className="widget-perk-item">
                     <Calendar size={16} color="var(--color-primary)" />
                     Instant guaranteed booking confirmation
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div className="widget-perk-item">
                     <Sparkles size={16} color="var(--color-accent)" />
                     Pay only 20% advance token to book
                   </div>
@@ -413,22 +356,20 @@ export const PackageDetail = ({ onOpenBookingModal }) => {
               {/* Action Buttons */}
               <button
                 onClick={() => onOpenBookingModal && onOpenBookingModal(pkg)}
-                className="btn btn-primary btn-lg pkg-detail-book-btn"
-                style={{ width: '100%', marginBottom: '12px' }}
+                className="btn btn-primary btn-lg widget-book-btn"
               >
                 Book This Vacation Now
               </button>
 
               <button
                 onClick={handleWishlistToggle}
-                className="btn btn-secondary"
-                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                className="btn btn-secondary widget-wishlist-btn"
               >
                 <Heart size={16} fill={isWishlisted ? '#ef4444' : 'none'} color={isWishlisted ? '#ef4444' : 'currentColor'} />
                 {isWishlisted ? 'Saved to Wishlist' : 'Add to Wishlist'}
               </button>
 
-              <div style={{ textAlign: 'center', marginTop: '16px', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+              <div className="widget-concierge-note">
                 Have questions before booking? Call our India concierge at <strong>+91 9876543210</strong>
               </div>
             </div>

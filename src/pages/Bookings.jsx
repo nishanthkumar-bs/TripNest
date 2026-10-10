@@ -68,7 +68,7 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
             <span className="section-pill">
               <CalendarCheck size={14} /> Reservation Hub
             </span>
-            <h1 className="section-title" style={{ marginBottom: '6px' }}>
+            <h1 className="section-title bookings-page-title">
               My Booked Vacations
             </h1>
             <p className="section-desc">
@@ -112,32 +112,21 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
               placeholder="Search reference # or traveler name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="form-input"
-              style={{ paddingLeft: '36px', paddingRight: '12px', fontSize: '0.88rem' }}
+              className="form-input bookings-search-input"
             />
           </div>
         </div>
 
         {/* Bookings List or Empty State */}
         {filteredBookings.length === 0 ? (
-          <div className="card" style={{ padding: '60px 24px', textAlign: 'center' }}>
-            <div style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: 'var(--radius-full)',
-              backgroundColor: 'var(--color-primary-light)',
-              color: 'var(--color-primary)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 16px auto'
-            }}>
+          <div className="card bookings-empty-card">
+            <div className="bookings-empty-icon">
               <CalendarCheck size={32} />
             </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h3 className="bookings-empty-title">
               No bookings found
             </h3>
-            <p style={{ color: 'var(--text-muted)', maxWidth: '440px', margin: '0 auto 24px auto' }}>
+            <p className="bookings-empty-desc">
               {searchQuery || filterStatus !== 'All'
                 ? 'No reservations matched your current filter criteria.'
                 : 'You have not booked any vacations with TripNest yet. Explore our curated packages to get started!'}
@@ -150,7 +139,7 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
             </button>
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="bookings-list-stack">
             {filteredBookings.map((booking) => (
               <BookingCard
                 key={booking.id}
@@ -239,52 +228,46 @@ export const Bookings = ({ onOpenBookingModal, onEditBooking }) => {
           maxWidth="640px"
         >
           <div className="ticket-print-sheet">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '12px' }}>
+            <div className="ticket-header-row">
               <div>
-                <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)' }}>TripNest</span>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'block' }}>Verified Travel Document</span>
+                <span className="ticket-brand-name">TripNest</span>
+                <span className="ticket-brand-sub">Verified Travel Document</span>
               </div>
-              <div style={{ fontFamily: 'monospace', fontWeight: 800, fontSize: '1.1rem', color: 'var(--color-primary)' }}>
+              <div className="ticket-id-code">
                 #{ticketToPrint.id}
               </div>
             </div>
 
             <div className="ticket-grid-details">
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Lead Traveler</span>
-                <div style={{ fontWeight: 700, fontSize: '1rem' }}>{ticketToPrint.travelerName}</div>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>{ticketToPrint.email}</div>
+              <div className="ticket-detail-item">
+                <span className="ticket-detail-label">Lead Traveler</span>
+                <div className="ticket-detail-value">{ticketToPrint.travelerName}</div>
+                <div className="ticket-detail-sub">{ticketToPrint.email}</div>
               </div>
 
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Destination</span>
-                <div style={{ fontWeight: 700, fontSize: '1rem' }}>{ticketToPrint.destination}</div>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>{ticketToPrint.packageTitle}</div>
+              <div className="ticket-detail-item">
+                <span className="ticket-detail-label">Destination</span>
+                <div className="ticket-detail-value">{ticketToPrint.destination}</div>
+                <div className="ticket-detail-sub">{ticketToPrint.packageTitle}</div>
               </div>
 
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Departure Date</span>
-                <div style={{ fontWeight: 700, fontSize: '1rem' }}>{ticketToPrint.departureDate}</div>
+              <div className="ticket-detail-item">
+                <span className="ticket-detail-label">Departure Date</span>
+                <div className="ticket-detail-value">{ticketToPrint.departureDate}</div>
               </div>
 
-              <div>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Party Size & Total</span>
-                <div style={{ fontWeight: 700, fontSize: '1rem' }}>{ticketToPrint.guests} Guests — ₹{Number(ticketToPrint.totalPrice || 0).toLocaleString('en-IN')}</div>
+              <div className="ticket-detail-item">
+                <span className="ticket-detail-label">Party Size & Total</span>
+                <div className="ticket-detail-value">{ticketToPrint.guests} Guests — ₹{Number(ticketToPrint.totalPrice || 0).toLocaleString('en-IN')}</div>
               </div>
             </div>
 
-            <div style={{
-              backgroundColor: 'var(--bg-card)',
-              padding: '12px',
-              borderRadius: 'var(--radius-sm)',
-              fontSize: '0.82rem',
-              color: 'var(--text-muted)'
-            }}>
+            <div className="ticket-footer-notice">
               ✓ Confirmed Status • 24/7 India Helpline: +91 9876543210 • Present this confirmation upon arrival.
             </div>
           </div>
 
-          <div className="bookings-modal-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '20px' }}>
+          <div className="bookings-modal-actions">
             <button onClick={() => setTicketToPrint(null)} className="btn btn-secondary">
               Close
             </button>

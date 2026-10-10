@@ -68,52 +68,23 @@ export const Navbar = ({ onOpenBookingModal }) => {
   return (
     <header
       ref={navRef}
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        height: 'var(--header-height)',
-        backgroundColor: isScrolled ? 'var(--bg-glass)' : 'var(--bg-card)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: `1px solid ${isScrolled ? 'var(--border-subtle)' : 'transparent'}`,
-        transition: 'all var(--transition-normal)'
-      }}
+      className={`app-header ${isScrolled ? 'scrolled' : ''}`}
     >
-      <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="container navbar-container">
         {/* Brand Logo */}
-        <Link
-          to="/"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            textDecoration: 'none'
-          }}
-        >
-          <div
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, var(--color-primary) 0%, #0284c7 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              boxShadow: 'var(--shadow-primary)'
-            }}
-          >
+        <Link to="/" className="navbar-brand">
+          <div className="navbar-brand-icon">
             <Compass size={24} />
           </div>
           <div>
-            <span style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center' }}>
-              Trip<span style={{ color: 'var(--color-primary)' }}>Nest</span>
+            <span className="navbar-brand-text">
+              Trip<span>Nest</span>
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav style={{ display: 'none', alignItems: 'center', gap: '26px' }} className="desktop-nav">
+        <nav className="desktop-nav">
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
@@ -129,36 +100,21 @@ export const Navbar = ({ onOpenBookingModal }) => {
           </NavLink>
 
           {/* Services Nested Routing Menu */}
-          <div ref={dropdownRef} style={{ position: 'relative' }}>
+          <div ref={dropdownRef} className="dropdown-wrapper">
             <button
               onClick={() => setServicesDropdownOpen(prev => !prev)}
-              className={`nav-link ${location.pathname.startsWith('/services') ? 'active' : ''}`}
-              style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'none' }}
+              className={`nav-link dropdown-trigger-btn ${location.pathname.startsWith('/services') ? 'active' : ''}`}
               aria-expanded={servicesDropdownOpen}
             >
               Services
-              <ChevronDown size={15} style={{ transform: servicesDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              <ChevronDown
+                size={15}
+                className={`dropdown-arrow ${servicesDropdownOpen ? 'open' : ''}`}
+              />
             </button>
 
             {servicesDropdownOpen && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 'calc(100% + 12px)',
-                  left: 0,
-                  width: '270px',
-                  backgroundColor: 'var(--bg-card)',
-                  borderRadius: 'var(--radius-lg)',
-                  boxShadow: 'var(--shadow-xl)',
-                  border: '1px solid var(--border-subtle)',
-                  padding: '10px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '4px',
-                  animation: 'fadeIn 0.18s ease-out',
-                  zIndex: 100
-                }}
-              >
+              <div className="dropdown-menu-list">
                 <Link
                   to="/services/flights"
                   className="dropdown-item"
@@ -213,9 +169,8 @@ export const Navbar = ({ onOpenBookingModal }) => {
           <NavLink
             to="/bookings"
             className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            style={{ position: 'relative' }}
           >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span className="nav-badge-link-content">
               <CalendarCheck size={17} />
               Bookings
               <span className="count-badge">{bookingsCount}</span>
@@ -225,12 +180,11 @@ export const Navbar = ({ onOpenBookingModal }) => {
           <NavLink
             to="/wishlist"
             className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            style={{ position: 'relative' }}
           >
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span className="nav-badge-link-content">
               <Bookmark size={17} />
               Wishlist
-              <span className="count-badge" style={{ backgroundColor: 'var(--color-accent)' }}>{wishlistCount}</span>
+              <span className="count-badge wishlist-badge">{wishlistCount}</span>
             </span>
           </NavLink>
 
@@ -250,21 +204,11 @@ export const Navbar = ({ onOpenBookingModal }) => {
         </nav>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="navbar-actions">
           {/* Dark/Light Mode Toggle */}
           <button
             onClick={toggleTheme}
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: 'var(--radius-full)',
-              backgroundColor: 'var(--bg-subtle)',
-              color: 'var(--text-main)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all var(--transition-fast)'
-            }}
+            className="theme-toggle-btn"
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             aria-label="Toggle color mode"
           >
@@ -281,7 +225,6 @@ export const Navbar = ({ onOpenBookingModal }) => {
               }
             }}
             className="btn btn-primary"
-            style={{ display: 'none' }}
             id="desktop-book-btn"
           >
             <Sparkles size={16} />
@@ -291,16 +234,6 @@ export const Navbar = ({ onOpenBookingModal }) => {
           {/* Mobile Menu Hamburger Button */}
           <button
             onClick={() => setMobileMenuOpen(prev => !prev)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '40px',
-              height: '40px',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'var(--bg-subtle)',
-              color: 'var(--text-main)'
-            }}
             className="mobile-toggle"
             aria-label="Toggle navigation menu"
           >
@@ -311,22 +244,7 @@ export const Navbar = ({ onOpenBookingModal }) => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 'var(--header-height)',
-            left: 0,
-            right: 0,
-            backgroundColor: 'var(--bg-card)',
-            borderBottom: '1px solid var(--border-subtle)',
-            padding: '20px',
-            boxShadow: 'var(--shadow-xl)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-            animation: 'fadeIn 0.2s ease-out'
-          }}
-        >
+        <div className="mobile-drawer">
           <NavLink to="/" className={({ isActive }) => (isActive ? 'mobile-nav-link active' : 'mobile-nav-link')}>
             Home
           </NavLink>
@@ -334,8 +252,8 @@ export const Navbar = ({ onOpenBookingModal }) => {
             Destinations & Packages
           </NavLink>
 
-          <div style={{ paddingLeft: '8px', borderLeft: '2px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Our Services</span>
+          <div className="mobile-services-section">
+            <span className="mobile-services-title">Our Services</span>
             <NavLink to="/services/flights" className="mobile-nav-sublink">✈️ Flights & Charters</NavLink>
             <NavLink to="/services/hotels" className="mobile-nav-sublink">🏨 Hotels & Resorts</NavLink>
             <NavLink to="/services/custom-tours" className="mobile-nav-sublink">🗺️ Custom Tours</NavLink>
@@ -364,8 +282,7 @@ export const Navbar = ({ onOpenBookingModal }) => {
                 navigate('/bookings');
               }
             }}
-            className="btn btn-primary"
-            style={{ marginTop: '10px', width: '100%' }}
+            className="btn btn-primary mobile-drawer-book-btn"
           >
             <Sparkles size={16} /> Book a Trip Now
           </button>

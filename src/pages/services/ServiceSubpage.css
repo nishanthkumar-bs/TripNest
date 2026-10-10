@@ -20,6 +20,27 @@
   padding: 40px;
 }
 
+.service-hero-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 12px;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+
+.service-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.service-hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .service-hero-img-wrap {
   height: 360px;
   overflow: hidden;
@@ -31,12 +52,117 @@
   object-fit: cover;
 }
 
+.service-features-heading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.service-feature-card {
+  padding: 28px;
+  display: flex;
+  gap: 16px;
+}
+
+.service-feature-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.service-feature-icon-wrap.accent {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.service-feature-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.service-feature-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.service-faq-card {
+  padding: 32px;
+}
+
+.service-faq-header {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.service-faq-item {
+  padding-bottom: 16px;
+}
+
+.service-faq-item.has-border {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.service-faq-q {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.service-faq-a {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 @media (max-width: 640px) {
   .service-hero-content {
     padding: 24px 20px;
   }
 
+  .service-hero-title {
+    font-size: 1.6rem;
+  }
+
   .service-hero-img-wrap {
     height: 240px;
+  }
+
+  .service-faq-card {
+    padding: 20px;
+  }
+}
+
+/* Mobile S (320px - 360px Viewports) */
+@media (max-width: 360px) {
+  .service-hero-content {
+    padding: 18px 14px;
+  }
+  .service-hero-title {
+    font-size: 1.4rem;
+  }
+  .service-feature-card {
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
   }
 }

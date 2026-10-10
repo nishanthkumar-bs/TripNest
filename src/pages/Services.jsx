@@ -1,52 +1,49 @@
-import { NavLink, Outlet, useLocation, Navigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import useDocumentTitle from '../hooks/useDocumentTitle';
-import { Plane, Building, Map, ShieldCheck, Sparkles, PhoneCall } from 'lucide-react';
+import {
+  Plane,
+  Building,
+  Map,
+  ShieldCheck,
+  Sparkles,
+  PhoneCall
+} from 'lucide-react';
 import './Services.css';
 
 export const Services = ({ onOpenBookingModal }) => {
-  useDocumentTitle('Premium Travel Services & Concierge');
-  const location = useLocation();
-
-  // If path is exactly '/services', redirect to '/services/flights'
-  if (location.pathname === '/services' || location.pathname === '/services/') {
-    return <Navigate to="/services/flights" replace />;
-  }
+  useDocumentTitle('Our Services — Flights, Hotels, Custom Tours, Visa & Insurance');
 
   const serviceTabs = [
     {
       to: '/services/flights',
-      icon: <Plane size={18} />,
-      label: 'Flights & Jets',
-      desc: 'Commercial & charter flights'
+      label: 'Flights & Charters',
+      desc: 'Domestic & Global routes',
+      icon: <Plane size={20} />
     },
     {
       to: '/services/hotels',
-      icon: <Building size={18} />,
-      label: 'Luxury Stays',
-      desc: 'Boutique hotels & villas'
+      label: 'Hotels & Resorts',
+      desc: 'Handpicked verified sanctuaries',
+      icon: <Building size={20} />
     },
     {
       to: '/services/custom-tours',
-      icon: <Map size={18} />,
-      label: 'Custom Tours',
-      desc: 'Private guides & itineraries'
+      label: 'Custom Itineraries',
+      desc: 'Tailor-made private journeys',
+      icon: <Map size={20} />
     },
     {
       to: '/services/visa-insurance',
-      icon: <ShieldCheck size={18} />,
-      label: 'Visa & Protection',
-      desc: 'Travel permits & global cover'
+      label: 'Visa & Insurance',
+      desc: 'Fast-track protection',
+      icon: <ShieldCheck size={20} />
     }
   ];
 
   return (
-    <div style={{ paddingBottom: '80px' }}>
+    <div className="services-page-wrap">
       {/* Header Banner */}
-      <section style={{
-        background: 'linear-gradient(180deg, var(--color-primary-light) 0%, transparent 100%)',
-        padding: '60px 0 40px 0',
-        textAlign: 'center'
-      }}>
+      <section className="services-hero">
         <div className="container">
           <span className="section-pill">
             <Sparkles size={14} /> End-to-End Travel Services
@@ -54,18 +51,12 @@ export const Services = ({ onOpenBookingModal }) => {
           <h1 className="section-title">
             Tailored Services For The Modern Explorer
           </h1>
-          <p className="section-desc" style={{ maxWidth: '640px', margin: '0 auto' }}>
+          <p className="section-desc services-hero-desc">
             From priority charter flights to bespoke itineraries and expedited consular visas, TripNest handles every detail with precision.
           </p>
 
           {/* Nested Navigation Tabs */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '12px',
-            marginTop: '36px'
-          }}>
+          <div className="services-tabs-row">
             {serviceTabs.map((tab) => (
               <NavLink
                 key={tab.to}
@@ -73,9 +64,9 @@ export const Services = ({ onOpenBookingModal }) => {
                 className={({ isActive }) => `service-tab-btn ${isActive ? 'active' : ''}`}
               >
                 <span className="service-tab-icon">{tab.icon}</span>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.92rem' }}>{tab.label}</div>
-                  <div style={{ fontSize: '0.75rem', opacity: 0.85 }} className="service-tab-desc">{tab.desc}</div>
+                <div className="services-tab-text">
+                  <div className="services-tab-title">{tab.label}</div>
+                  <div className="service-tab-desc">{tab.desc}</div>
                 </div>
               </NavLink>
             ))}
@@ -84,34 +75,23 @@ export const Services = ({ onOpenBookingModal }) => {
       </section>
 
       {/* Nested Route Outlet */}
-      <main className="container" style={{ marginTop: '40px' }}>
+      <main className="container services-main-outlet">
         <Outlet />
       </main>
 
       {/* Bottom CTA Banner */}
-      <section className="container" style={{ marginTop: '60px' }}>
-        <div style={{
-          background: 'linear-gradient(135deg, #0369a1 0%, #0f172a 100%)',
-          borderRadius: 'var(--radius-xl)',
-          padding: '48px 36px',
-          color: '#ffffff',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '24px',
-          boxShadow: 'var(--shadow-xl)'
-        }}>
+      <section className="container services-cta-section">
+        <div className="services-cta-banner">
           <div>
-            <h3 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '8px', color: '#ffffff' }}>
+            <h3 className="services-cta-title">
               Need a completely custom arrangement?
             </h3>
-            <p style={{ opacity: 0.85, fontSize: '1rem', maxWidth: '540px' }}>
+            <p className="services-cta-desc">
               Speak with a dedicated TripNest destination architect today. We can customize flights, luxury accommodations, and private tours according to your exact preferences.
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <div className="services-cta-actions">
             <button
               onClick={() => onOpenBookingModal && onOpenBookingModal()}
               className="btn btn-accent btn-lg"
@@ -120,8 +100,7 @@ export const Services = ({ onOpenBookingModal }) => {
             </button>
             <a
               href="tel:+919876543210"
-              className="btn btn-secondary btn-lg"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.2)' }}
+              className="btn btn-secondary btn-lg services-cta-phone-btn"
             >
               <PhoneCall size={18} /> Call Concierge (+91 9876543210)
             </a>

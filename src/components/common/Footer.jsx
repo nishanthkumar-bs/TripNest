@@ -4,48 +4,26 @@ import './Footer.css';
 
 export const Footer = () => {
   return (
-    <footer style={{
-      backgroundColor: 'var(--bg-card)',
-      borderTop: '1px solid var(--border-subtle)',
-      marginTop: 'auto',
-      padding: '40px 0 28px 0'
-    }}>
+    <footer className="app-footer">
       <div className="container">
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '24px',
-          paddingBottom: '24px',
-          borderBottom: '1px solid var(--border-subtle)'
-        }}>
+        <div className="footer-top-row">
           {/* Brand */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, var(--color-primary) 0%, #0284c7 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff'
-            }}>
+          <div className="footer-brand">
+            <div className="footer-brand-icon">
               <Compass size={22} />
             </div>
             <div>
-              <span style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-main)' }}>
-                Trip<span style={{ color: 'var(--color-primary)' }}>Nest</span>
+              <span className="footer-brand-title">
+                Trip<span>Nest</span>
               </span>
-              <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              <span className="footer-brand-subtitle">
                 Incredible India & Curated Vacations
               </span>
             </div>
           </div>
 
           {/* Quick Nav Links */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', fontSize: '0.9rem', fontWeight: 600 }}>
+          <div className="footer-nav-links">
             <Link to="/" className="footer-link">Home</Link>
             <Link to="/packages" className="footer-link">Destinations</Link>
             <Link to="/services" className="footer-link">Services</Link>
@@ -56,22 +34,14 @@ export const Footer = () => {
           </div>
 
           {/* India Helpline */}
-          <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-            <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>24/7 India Helpline</div>
-            <div style={{ color: 'var(--color-primary)', fontWeight: 800, fontSize: '1rem' }}>+91 9876543210</div>
+          <div className="footer-helpline">
+            <div className="footer-helpline-label">24/7 India Helpline</div>
+            <div className="footer-helpline-phone">+91 9876543210</div>
           </div>
         </div>
 
         {/* Copyright */}
-        <div style={{
-          paddingTop: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          fontSize: '0.82rem',
-          color: 'var(--text-muted)'
-        }}>
+        <div className="footer-copyright">
           <div>
             © {new Date().getFullYear()} TripNest Travel. Built with React.
           </div>

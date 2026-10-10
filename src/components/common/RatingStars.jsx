@@ -1,12 +1,13 @@
 import { Star } from 'lucide-react';
+import './RatingStars.css';
 
 export const RatingStars = ({ rating = 5, reviewsCount = null, size = 16, showScore = true }) => {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating - fullStars >= 0.4;
 
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-      <div style={{ display: 'flex', color: '#f59e0b' }}>
+    <div className="rating-stars-container">
+      <div className="rating-stars-list">
         {[...Array(5)].map((_, i) => {
           const isFilled = i < fullStars || (i === fullStars && hasHalfStar);
           return (
@@ -21,12 +22,12 @@ export const RatingStars = ({ rating = 5, reviewsCount = null, size = 16, showSc
         })}
       </div>
       {showScore && (
-        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', marginLeft: '3px' }}>
+        <span className="rating-stars-score">
           {rating.toFixed(1)}
         </span>
       )}
       {reviewsCount !== null && (
-        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+        <span className="rating-stars-reviews">
           ({reviewsCount} reviews)
         </span>
       )}

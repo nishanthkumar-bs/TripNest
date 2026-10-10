@@ -8,56 +8,28 @@ export const Toast = () => {
   if (!notifications || notifications.length === 0) return null;
 
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: '24px',
-      right: '24px',
-      zIndex: 9999,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '10px',
-      maxWidth: '380px',
-      width: 'calc(100% - 48px)',
-      pointerEvents: 'none'
-    }}>
+    <div className="toast-container">
       {notifications.map((item) => {
         const isSuccess = item.type === 'success';
         const isError = item.type === 'error';
+        const typeClass = isSuccess ? 'toast-success' : isError ? 'toast-error' : 'toast-info';
 
         return (
           <div
             key={item.id}
-            style={{
-              pointerEvents: 'auto',
-              background: 'var(--bg-card)',
-              color: 'var(--text-main)',
-              borderRadius: 'var(--radius-md)',
-              padding: '14px 16px',
-              boxShadow: 'var(--shadow-lg)',
-              border: `1.5px solid ${isSuccess ? 'var(--color-success)' : isError ? 'var(--color-danger)' : 'var(--color-primary)'}`,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              animation: 'slideIn 0.25s ease-out'
-            }}
+            className={`toast-card ${typeClass}`}
           >
-            {isSuccess && <CheckCircle2 size={20} color="var(--color-success)" style={{ flexShrink: 0 }} />}
-            {isError && <AlertCircle size={20} color="var(--color-danger)" style={{ flexShrink: 0 }} />}
-            {!isSuccess && !isError && <Info size={20} color="var(--color-primary)" style={{ flexShrink: 0 }} />}
+            {isSuccess && <CheckCircle2 size={20} color="var(--color-success)" className="toast-icon" />}
+            {isError && <AlertCircle size={20} color="var(--color-danger)" className="toast-icon" />}
+            {!isSuccess && !isError && <Info size={20} color="var(--color-primary)" className="toast-icon" />}
 
-            <div style={{ flex: 1, fontSize: '0.9rem', fontWeight: 500, lineHeight: 1.4 }}>
+            <div className="toast-message">
               {item.message}
             </div>
 
             <button
               onClick={() => dismissNotification(item.id)}
-              style={{
-                color: 'var(--text-muted)',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '4px',
-                borderRadius: '4px'
-              }}
+              className="toast-close-btn"
               aria-label="Dismiss toast"
             >
               <X size={16} />

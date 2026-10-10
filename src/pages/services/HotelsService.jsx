@@ -7,24 +7,20 @@ export const HotelsService = ({ onOpenBookingModal }) => {
   const service = SERVICES_DATA.hotels;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+    <div className="service-subpage-layout">
       {/* Hero Service Card */}
-      <div className="card" style={{ overflow: 'hidden' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          alignItems: 'center'
-        }}>
-          <div style={{ padding: '40px' }}>
-            <Badge variant="success">{service.badge}</Badge>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, marginTop: '12px', marginBottom: '14px', lineHeight: 1.25 }}>
+      <div className="card service-hero-card">
+        <div className="service-hero-grid">
+          <div className="service-hero-content">
+            <Badge variant="success" className="mb-2">{service.badge}</Badge>
+            <h2 className="service-hero-title">
               {service.title}
             </h2>
-            <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
+            <p className="service-hero-desc">
               {service.description}
             </p>
 
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <div className="service-hero-actions">
               <button
                 onClick={() => onOpenBookingModal && onOpenBookingModal()}
                 className="btn btn-primary"
@@ -37,11 +33,11 @@ export const HotelsService = ({ onOpenBookingModal }) => {
             </div>
           </div>
 
-          <div style={{ height: '360px', overflow: 'hidden' }}>
+          <div className="service-hero-img-wrap">
             <img
               src={service.heroImage}
               alt={service.title}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              className="service-hero-img"
             />
           </div>
         </div>
@@ -49,30 +45,20 @@ export const HotelsService = ({ onOpenBookingModal }) => {
 
       {/* Service Features Grid */}
       <div id="features">
-        <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '24px', textAlign: 'center' }}>
-          Exclusive Privileges At 500+ Luxury Partner Properties
+        <h3 className="service-features-heading">
+          The TripNest Hospitality Difference
         </h3>
         <div className="grid-2">
           {service.features.map((feat, idx) => (
-            <div key={idx} className="card" style={{ padding: '28px', display: 'flex', gap: '16px' }}>
-              <div style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'var(--color-secondary-light)',
-                color: 'var(--color-secondary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}>
+            <div key={idx} className="card service-feature-card">
+              <div className="service-feature-icon-wrap">
                 <CheckCircle2 size={24} />
               </div>
               <div>
-                <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '6px' }}>
+                <h4 className="service-feature-title">
                   {feat.title}
                 </h4>
-                <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                <p className="service-feature-desc">
                   {feat.desc}
                 </p>
               </div>
@@ -82,18 +68,21 @@ export const HotelsService = ({ onOpenBookingModal }) => {
       </div>
 
       {/* Hotel FAQ Accordion */}
-      <div className="card" style={{ padding: '32px' }}>
-        <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div className="card service-faq-card">
+        <h3 className="service-faq-header">
           <HelpCircle size={22} color="var(--color-primary)" />
-          Hotel & Villa Booking Questions
+          Frequently Asked Questions
         </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="service-faq-list">
           {service.faqs.map((faq, idx) => (
-            <div key={idx} style={{ borderBottom: idx !== service.faqs.length - 1 ? '1px solid var(--border-subtle)' : 'none', paddingBottom: '16px' }}>
-              <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-main)', marginBottom: '6px' }}>
+            <div
+              key={idx}
+              className={`service-faq-item ${idx !== service.faqs.length - 1 ? 'has-border' : ''}`}
+            >
+              <div className="service-faq-q">
                 {faq.q}
               </div>
-              <div style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+              <div className="service-faq-a">
                 {faq.a}
               </div>
             </div>
