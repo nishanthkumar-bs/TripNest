@@ -148,7 +148,7 @@ export const Home = ({ onOpenBookingModal }) => {
             {/* Popular quick destination chips */}
             <div className="hero-popular-chips">
               <span className="hero-popular-label">Popular:</span>
-              {['Kashmir', 'Kerala', 'Goa', 'Rajasthan', 'Ladakh', 'Himachal'].map(dest => (
+              {['Kashmir', 'Kerala', 'Goa', 'Rajasthan', 'Ladakh', 'Himachal', 'Ooty', 'Meghalaya', 'Dubai', 'Maldives'].map(dest => (
                 <button
                   key={dest}
                   type="button"
